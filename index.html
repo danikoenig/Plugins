@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plugins by Dani Koenig</title>
+<meta name="description" content="Free VST3 and Audio Unit plugins for macOS (Apple Silicon) by Dani Koenig: One Shooter, Quad Shooter, Drift Station, Repetitor.">
+<meta property="og:title" content="Plugins by Dani Koenig">
+<meta property="og:description" content="Free VST3 / AU plugins for macOS. Sample players, effects and MIDI tools.">
+<meta property="og:image" content="img/quad-shooter.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a producer's own plugin shelf, confident and calm, no hype
+   IDEA: the page is built like the plugin windows: dark panels, coloured dot labels, glowing knobs
+   PICTURE: the four real plugin windows stacked like a rack in the hero
+   COLOUR and TYPE: plugin charcoal #121316, panel #1c1d21, orange #ff8a3d accent, slot colours per line; Inter
+   LAYOUT: header, hero with rack, one band per line (Sample players, Effects, MIDI), install steps, footer */
+:root{color-scheme:dark;--bg:#121316;--panel:#1c1d21;--panel2:#232429;--line:#2c2d33;--ink:#ececef;--mute:#9a9ca4;
+--or:#ff8a3d;--or2:#ffab4a;--cy:#4fd1e0;--vi:#a78bfa;--gr:#5ee6a8;--bl:#4fb8ee;--rd:#f0485a}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+header{position:sticky;top:0;z-index:5;background:rgba(18,19,22,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:18px;min-height:64px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand b{font-weight:800;letter-spacing:.01em}.brand small{display:block;color:var(--mute);font-size:13px;line-height:1.1}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
+nav a:hover,nav a:focus-visible{color:var(--ink);background:var(--panel)}
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(36px,6vw,84px) 0 clamp(28px,4vw,56px)}
+h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 18px;font-weight:800;text-wrap:balance;letter-spacing:-.01em}
+.lead{font-size:17px;color:var(--mute);max-width:34em;margin:0 0 26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;padding:0;list-style:none}
+.chips li{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--or));box-shadow:0 0 10px var(--c,var(--or));flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);white-space:nowrap;transition:border-color .15s,background .15s}
+.btn:hover{border-color:#44464e}.btn:focus-visible,nav a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.btn.main{background:linear-gradient(180deg,var(--or2),var(--or));color:#1b1209;border-color:transparent;box-shadow:0 6px 24px -8px rgba(255,138,61,.6)}
+.btn.main:hover{filter:brightness(1.06)}
+.btn svg{width:18px;height:18px;flex:none}
+.rack{position:relative;aspect-ratio:16/11}
+.rack img{position:absolute;width:74%;border-radius:12px;border:1px solid #33343a;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.03) inset}
+.rack img:nth-child(1){left:0;top:0;z-index:1}
+.rack img:nth-child(2){left:9%;top:14%;z-index:2}
+.rack img:nth-child(3){left:18%;top:28%;z-index:3}
+.rack img:nth-child(4){left:26%;top:42%;z-index:4}
+.rack::after{content:"";position:absolute;inset:auto 0 -6% 8%;height:30%;background:radial-gradient(closest-side,rgba(255,138,61,.22),transparent);z-index:0;filter:blur(20px)}
+.line{padding:clamp(36px,5vw,72px) 0;border-top:1px solid var(--line)}
+.lhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.lhead h2{font-size:32px;line-height:1.1;margin:0;font-weight:800;display:flex;align-items:center;gap:12px}
+.lhead p{margin:0;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.shot{display:block;background:#0d0e10;border-bottom:1px solid var(--line);aspect-ratio:16/9.4;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block;transition:transform .5s}
+.card:hover .shot img{transform:scale(1.02)}
+.body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.ttl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ttl h3{margin:0;font-size:22px;font-weight:800;letter-spacing:.01em;text-transform:uppercase}
+.ver{font-size:13px;font-weight:600;color:var(--mute);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums}
+.sub{margin:0;color:var(--mute)}
+.feat{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.feat li{display:flex;gap:10px;align-items:baseline}.feat li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c);flex:none;transform:translateY(-2px)}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
+.meta span{font-size:13px;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
+.small{font-size:14px;min-height:44px;padding:8px 14px}
+.note{font-size:14px;color:var(--mute);margin:0}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--panel2);border:1px solid var(--or);color:var(--or);font-weight:700;margin-bottom:12px}
+.steps b{display:block;margin-bottom:4px}
+.steps p{margin:0;color:var(--mute);font-size:15px}
+.req{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-top:20px}
+.req div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:15px}
+.req div span{display:block;color:var(--mute);font-size:13px}
+details{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 18px}
+summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:600}
+details p{color:var(--mute);margin:0 0 14px}
+footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer p{margin:0;max-width:60ch}
+@media(min-width:901px){.card:only-child{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.card:only-child .shot{aspect-ratio:auto;height:100%;border-bottom:0;border-right:1px solid var(--line)}.card:only-child .shot img{object-fit:contain;object-position:center;background:#0d0e10}}
+@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.rack{order:-1;max-width:640px}}
+@media(max-width:600px){nav{display:none}.lhead h2{font-size:26px}.body{padding:18px}.acts .btn{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="#top" aria-label="Plugins by Dani Koenig, home">
+    <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
+    <span><b>DANI KOENIG</b><small>Plugins</small></span>
+  </a>
+  <nav aria-label="Sections"><a href="#sample-players">Sample players</a><a href="#effects">Effects</a><a href="#midi">MIDI</a><a href="#install">Install</a></nav>
+</div></header>
+
+<main id="top" class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Free plugins for macOS</h1>
+      <p class="lead">Sample players, effects and MIDI tools I build for my own studio and DJ work in Zürich. VST3 and Audio Unit for Apple Silicon, free to download.</p>
+      <ul class="chips">
+        <li><span class="dot"></span>4 plugins</li>
+        <li><span class="dot" style="--c:var(--gr)"></span>Free</li>
+        <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU</li>
+        <li><span class="dot" style="--c:var(--vi)"></span>Apple Silicon</li>
+      </ul>
+      <a class="btn main" href="#sample-players">Browse plugins</a>
+    </div>
+    <div class="rack" aria-hidden="true">
+      <img src="img/drift-station.jpg" alt="">
+      <img src="img/repetitor.jpg" alt="">
+      <img src="img/one-shooter.jpg" alt="">
+      <img src="img/quad-shooter.jpg" alt="">
+    </div>
+  </section>
+
+  <section class="line" id="sample-players">
+    <div class="lhead"><h2><span class="dot" style="--c:var(--or)"></span>Sample players</h2><p>Two sisters for one-shots: kicks, claps, hits.</p></div>
+    <div class="grid" data-line="sample"></div>
+  </section>
+
+  <section class="line" id="effects">
+    <div class="lhead"><h2><span class="dot" style="--c:var(--cy)"></span>Effects</h2><p>Audio effects for drones, textures and live playing.</p></div>
+    <div class="grid" data-line="fx"></div>
+  </section>
+
+  <section class="line" id="midi">
+    <div class="lhead"><h2><span class="dot" style="--c:var(--vi)"></span>MIDI</h2><p>Note generators that sit in front of your synth.</p></div>
+    <div class="grid" data-line="midi"></div>
+  </section>
+
+  <section class="line" id="install">
+    <div class="lhead"><h2><span class="dot" style="--c:var(--gr)"></span>Install</h2><p>No Terminal needed. The first time takes one extra click.</p></div>
+    <ol class="steps">
+      <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
+      <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
+      <li><b>Allow it once</b><p>System Settings &gt; Privacy &amp; Security. Scroll down, click Open Anyway and enter your Mac password.</p></li>
+      <li><b>Install and rescan</b><p>Click Continue and Install. Restart your DAW and rescan plugins. VST3 and AU are both installed.</p></li>
+    </ol>
+    <div class="req">
+      <div><span>Computer</span>Mac with Apple Silicon (M1 or newer). Intel Macs are not supported.</div>
+      <div><span>System</span>macOS 11 Big Sur or newer</div>
+      <div><span>DAW</span>Any VST3 host (Bitwig, Ableton Live, Cubase, Reaper ...) or AU host (Logic Pro, GarageBand)</div>
+    </div>
+    <details>
+      <summary>Uninstall</summary>
+      <p>Every plugin has its own uninstaller next to the download button. Download it, double-click it and allow it the same way as the installer.</p>
+    </details>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Made by Dani Koenig, DJ and producer from Zürich. All plugins are free. Source code on <a href="https://github.com/danikoenig">GitHub</a>.</p>
+  <p>Drift Station is inspired by the SOMA Laboratory COSMOS, Repetitor by the Noise Engineering Gamut Repetitor. Independent projects, not affiliated with either company.</p>
+</div></footer>
+
+<script>
+{
+  // Edit here. reel = YouTube Shorts ID (youtube.com/shorts/ID), leave '' to hide the Watch reel button.
+  const GH = 'https://github.com/danikoenig/';
+  const plugins = [
+    {line:'sample', repo:'OneShooter', name:'One Shooter', ver:'1.5.2', c:'var(--or)', img:'one-shooter',
+     sub:'One-shot sample player inspired by Ableton’s Drum Sampler. Built for kicks, works with any one-shot.',
+     feat:['Note-value grid on the waveform, synced to your DAW tempo','Pitch and amp envelope, sub oscillator, duck gate','KNOCK-style clipper with auto gain, output limiter','Library: drop a folder, all one-shots indexed, files stay where they are'],
+     meta:['VST3','AU','Instrument'], reel:'hZExpdoyzUo'},
+    {line:'sample', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.1', c:'var(--bl)', img:'quad-shooter',
+     sub:'4-slot layering sampler. Blend four one-shots with one dot on the XY pad.',
+     feat:['4 slots with edit row: start, level, pan, envelope, pitch, tone, cut','Pitch detection and Key Sync to a lead slot','Delay, reverb and clipper in a chain you can reorder','Shares the library with One Shooter'],
+     meta:['VST3','AU','Instrument'], reel:''},
+    {line:'fx', repo:'DriftStation', name:'Drift Station', ver:'0.3.1', c:'var(--cy)', img:'drift-station',
+     sub:'Drifting memory processor. Records what you feed it and keeps recombining it into evolving drones.',
+     feat:['2 Delays, 4 Delays, Giant Reverb and Granular, each in 3 sizes','Pitch stays steady, made for soloing over a recorded drone','Transpose -24 to +12, feedback up to 1.25 with soft limiter','Slow left-right sway like the hardware, resizable window'],
+     meta:['VST3','AU','Standalone','Audio effect'], reel:''},
+    {line:'midi', repo:'Repetitor', name:'Repetitor', ver:'1.0.0', c:'var(--vi)', img:'repetitor',
+     sub:'Quad random quantized note generator. Every trigger makes a new note in your scale, turn Length down to loop it.',
+     feat:['4 channels on their own MIDI channels, MIDI in or internal clock','27 scales plus custom scale on the mini keyboard','Vary: skipped notes, octave jumps and fifths by chance','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
+     meta:['VST3','AU','MIDI effect'], reel:'', manual:true}
+  ];
+  const ico = {
+    play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
+    dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>',
+    gh:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>'
+  };
+  const dl = (p, f) => GH + p.repo + '/releases/latest/download/' + f;
+  const card = p => `
+    <article class="card" style="--c:${p.c}">
+      <a class="shot" href="${GH + p.repo}"><img src="img/${p.img}.jpg" alt="${p.name} plugin window" loading="lazy"></a>
+      <div class="body">
+        <div class="ttl"><span class="dot"></span><h3>${p.name}</h3><span class="ver" data-repo="${p.repo}">v${p.ver}</span></div>
+        <p class="sub">${p.sub}</p>
+        <ul class="feat">${p.feat.map(f => `<li>${f}</li>`).join('')}</ul>
+        <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
+        <div class="acts">
+          <a class="btn main" href="${dl(p, p.repo + '-Installer.pkg')}">${ico.dl}Download</a>
+          ${p.manual ? `<a class="btn small" href="${dl(p, p.repo + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, p.repo + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
+          ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
+          <a class="btn small" href="${dl(p, p.repo + '-Uninstaller.pkg')}">Uninstaller</a>
+          <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
+        </div>
+      </div>
+    </article>`;
+  for (const g of document.querySelectorAll('[data-line]'))
+    g.innerHTML = plugins.filter(p => p.line === g.dataset.line).map(card).join('');
+
+  // Live version from the latest GitHub release (works on GitHub Pages; falls back to the version above)
+  for (const el of document.querySelectorAll('.ver[data-repo]')) {
+    fetch('https://api.github.com/repos/danikoenig/' + el.dataset.repo + '/releases/latest')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.tag_name) el.textContent = d.tag_name.startsWith('v') ? d.tag_name : 'v' + d.tag_name; })
+      .catch(() => {});
+  }
+}
+</script>
+</body>
+</html>
