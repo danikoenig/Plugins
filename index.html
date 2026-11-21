@@ -15,7 +15,7 @@
    IDEA: one stage, one plugin at a time. The colour, the light and the moving lines follow the plugin you pick
    PICTURE: big outlined names on the left, the plugin window floating in coloured light on the right
    COLOUR and TYPE: plugin charcoal #121316, accent per plugin (animated), Inter 800 uppercase for names
-   LAYOUT: header, full-height stage (index + window + info), what's inside, install steps, footer */
+   LAYOUT: header, full-height stage (index + window + info), one section per plugin, install steps, footer */
 @property --ac{syntax:'<color>';inherits:true;initial-value:#ff8a3d}
 :root{color-scheme:dark;--bg:#0f1012;--panel:#1a1b1f;--panel2:#232429;--line:#2a2b31;--ink:#f1f1f3;--mute:#9a9ca4;--or:#ff8a3d;--gr:#5ee6a8}
 *{box-sizing:border-box;min-width:0}
@@ -29,6 +29,10 @@ header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(1
 .brand b{font-weight:800;letter-spacing:.02em}.brand small{display:block;color:var(--mute);font-size:13px;line-height:1.1}
 .bar a.lnk{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
 .bar a.lnk:hover{color:var(--ink)}
+.pn{display:flex;gap:2px;margin-right:6px}
+.pn a{flex:none;white-space:nowrap;text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 10px;border-radius:9px;position:relative;transition:color .2s,background .2s}
+.pn a:hover{color:var(--ink)}
+.pn a.on{color:var(--ink);background:rgba(255,255,255,.06);box-shadow:inset 0 -2px 0 var(--c)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ac,var(--or));outline-offset:3px;border-radius:6px}
 
 /* STAGE */
@@ -89,7 +93,25 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac,var(--or));outli
 .scroll::after{content:"";width:1px;height:26px;background:linear-gradient(var(--ac),transparent);animation:drip 2.2s ease-in-out infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* WHAT'S INSIDE */
+/* ONE SECTION PER PLUGIN */
+.plug{position:relative;isolation:isolate;overflow:clip;padding:clamp(56px,8vw,120px) 0;border-top:1px solid var(--line)}
+.plug::before{content:"";position:absolute;z-index:-1;width:min(900px,85vw);aspect-ratio:1;top:50%;right:-14%;transform:translateY(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 20%,transparent),transparent 72%);pointer-events:none}
+.plug:nth-child(even)::before{right:auto;left:-14%}
+.pgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,88px);align-items:center}
+.plug:nth-child(even) .pgrid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.plug:nth-child(even) .pvis{order:-1}
+.plug .kick{margin-bottom:14px}
+.plug h2{margin:0 0 10px;font-size:clamp(44px,6.4vw,100px);line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;color:var(--ac);overflow-wrap:anywhere;text-shadow:0 0 70px color-mix(in srgb,var(--ac) 40%,transparent)}
+.plug .pv{margin:0 0 18px}
+.plug .sub{margin:0 0 18px}
+.plug .meta{margin-bottom:22px}
+.pshot{display:block;border-radius:16px;overflow:hidden;line-height:0;background:#0d0e10;box-shadow:0 50px 90px -34px rgba(0,0,0,.9),0 0 90px -26px var(--ac),0 0 0 1px rgba(255,255,255,.1);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pshot:hover{transform:translateY(-4px)}
+.pshot img{display:block;width:100%;height:auto}
+.pshot.tall{max-width:340px;margin-inline:auto}
+.pvis .fl{margin-top:34px}
+
+/* WHAT'S INSIDE (list style reused by the plugin sections) */
 .more{--ac:#ff8a3d;transition:--ac .9s ease;padding:clamp(56px,9vw,130px) 0;border-top:1px solid var(--line);position:relative}
 .mgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,80px);align-items:start}
 .more h2{margin:0;font-size:clamp(44px,7vw,110px);line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;color:var(--ac)}
@@ -119,8 +141,18 @@ footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mute);fo
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 footer p{margin:0;max-width:60ch}
 
+@media(max-width:1300px){
+  .bar{flex-wrap:wrap;column-gap:8px}
+  .pn{order:3;flex:0 0 100%;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1 * max(4vw,18px));padding:0 max(4vw,18px) 8px;-webkit-overflow-scrolling:touch}
+  .pn::-webkit-scrollbar{display:none}
+  .bar{min-height:56px}
+  .stage{margin-top:0;padding-top:0}
+  html{scroll-padding-top:112px}
+}
 @media(max-width:900px){
   .stage{min-height:0}
+  .pgrid,.plug:nth-child(even) .pgrid{grid-template-columns:minmax(0,1fr)}
+  .plug:nth-child(even) .pvis{order:0}
   .sgrid{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:12px;padding-bottom:64px;gap:18px}
   .idx{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:calc(-1 * max(4vw,18px));padding-inline:max(4vw,18px);scrollbar-width:none}
   .idx::-webkit-scrollbar{display:none}
@@ -143,7 +175,7 @@ footer p{margin:0;max-width:60ch}
     <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
     <span><b>DANI KOENIG</b><small>Plugins</small></span>
   </a>
-  <a class="lnk opt" href="#inside">What's inside</a>
+  <nav class="pn" id="pn" aria-label="Plugins"></nav>
   <a class="lnk" href="#install">Install</a>
   <a class="lnk opt" href="https://github.com/danikoenig">GitHub</a>
 </div></header>
@@ -161,15 +193,10 @@ footer p{margin:0;max-width:60ch}
         <div class="info" id="info" aria-live="polite"></div>
       </div>
     </div>
-    <a class="scroll" href="#inside">More</a>
+    <a class="scroll" href="#the-one">More</a>
   </section>
 
-  <section class="more" id="inside">
-    <div class="wrap mgrid">
-      <div><p class="lab">What's inside</p><h2 id="mname">The One</h2></div>
-      <ol class="fl" id="mfeat"></ol>
-    </div>
-  </section>
+  <div id="plugins"></div>
 
   <div class="wrap">
   <section class="line" id="install">
@@ -244,8 +271,15 @@ footer p{margin:0;max-width:60ch}
   const dl = (p, f) => GH + p.repo + '/releases/latest/download/' + f;
   const fn = p => p.file || p.repo;
   const slug = p => p.name.toLowerCase().replace(/\s+/g, '-');
+  const acts = p => `<div class="acts">
+        <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
+        ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
+        ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
+        <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
+        <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
+      </div>`;
   const $ = id => document.getElementById(id);
-  const stage = $('stage'), more = $('inside'), idx = $('idx'), tilt = $('tilt'), viz = $('viz'), info = $('info');
+  const stage = $('stage'), idx = $('idx'), tilt = $('tilt'), viz = $('viz'), info = $('info');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cur = -1, pulse = 0;
 
@@ -253,6 +287,38 @@ footer p{margin:0;max-width:60ch}
   idx.innerHTML = plugins.map((p, i) => `<li><button type="button" data-i="${i}">${p.name}<small>${String(i + 1).padStart(2, '0')}</small></button></li>`).join('');
   tilt.innerHTML = plugins.map(p => `<div class="shot"><a href="${GH + p.repo}" tabindex="-1"><img src="img/${p.img}.jpg" alt="${p.name} plugin window"></a></div>`).join('');
   const btns = [...idx.querySelectorAll('button')], shots = [...tilt.children];
+
+  // header nav: every plugin, direct jump
+  $('pn').innerHTML = plugins.map(p => `<a href="#${slug(p)}" style="--c:${p.c}">${p.name}</a>`).join('');
+
+  // one section per plugin, in order
+  $('plugins').innerHTML = plugins.map((p, i) => `
+    <section class="plug" id="${slug(p)}" style="--ac:${p.c}">
+      <div class="wrap pgrid">
+        <div class="pmain">
+          <p class="kick"><i></i>${String(i + 1).padStart(2, '0')} / ${String(plugins.length).padStart(2, '0')} &middot; ${p.kind}</p>
+          <h2>${p.name}</h2>
+          <p class="pv"><span class="ver" data-repo="${p.repo}">v${p.ver}</span></p>
+          <p class="sub">${p.sub}</p>
+          <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
+          ${acts(p)}
+        </div>
+        <div class="pvis">
+          <a class="pshot${p.tall ? ' tall' : ''}" href="${GH + p.repo}"><img src="img/${p.img}.jpg" alt="${p.name} plugin window" loading="lazy"></a>
+          <ol class="fl">${p.feat.map(f => `<li>${f}</li>`).join('')}</ol>
+        </div>
+      </div>
+    </section>`).join('');
+  const navLinks = [...$('pn').children];
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(a => {
+      const on = a.getAttribute('href') === '#' + e.target.id;
+      a.classList.toggle('on', on);
+      if (on && $('pn').scrollWidth > $('pn').clientWidth) $('pn').scrollTo({left: a.offsetLeft - 24, behavior: reduce ? 'auto' : 'smooth'});
+    });
+  }), {rootMargin: '-40% 0px -55% 0px'});
+  document.querySelectorAll('.plug').forEach(el => spy.observe(el));
 
   function render(i) {
     const p = plugins[i];
@@ -265,15 +331,7 @@ footer p{margin:0;max-width:60ch}
       </div>
       <p class="sub">${p.sub}</p>
       <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
-      <div class="acts">
-        <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
-        ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
-        ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
-        <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
-        <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
-      </div>`;
-    $('mname').textContent = p.name;
-    $('mfeat').innerHTML = p.feat.map((f, k) => `<li style="animation-delay:${k * 70}ms">${f}</li>`).join('');
+      ${acts(p)}`;
   }
 
   function select(i, o = {}) {
@@ -281,18 +339,17 @@ footer p{margin:0;max-width:60ch}
     if (i === cur) return;
     cur = i;
     const p = plugins[i];
-    stage.style.setProperty('--ac', p.c); more.style.setProperty('--ac', p.c);
+    stage.style.setProperty('--ac', p.c);
     btns.forEach((b, k) => b.setAttribute('aria-current', k === i ? 'true' : 'false'));
     shots.forEach((s, k) => s.classList.toggle('on', k === i));
     shots.forEach((s, k) => { const a = s.firstChild; a.tabIndex = k === i ? 0 : -1; });
     render(i);
     pulse = 1;
-    if (o.hash !== false) history.replaceState(null, '', '#' + slug(p));
     if (innerWidth <= 900) { const b = btns[i]; idx.scrollTo({left: b.parentElement.offsetLeft - (idx.clientWidth - b.offsetWidth) / 2, behavior: 'smooth'}); }
   }
 
   btns.forEach((b, i) => {
-    b.addEventListener('click', () => select(i));
+    b.addEventListener('click', () => { select(i); $(slug(plugins[i])).scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'}); });
     b.addEventListener('focus', () => select(i));
     b.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && innerWidth > 900) select(i); });
   });
