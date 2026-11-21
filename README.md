@@ -29,3 +29,7 @@ Download page for my free macOS plugins (VST3, Audio Unit, CLAP). One stage on t
 All plugin texts are in the `plugins` list at the bottom of `index.html`.
 To show a 'Watch reel' button, put the YouTube Shorts ID into `reel:''` (e.g. `reel:'hZExpdoyzUo'`).
 New screenshot: replace the file in `img/`.
+
+## Audio clips
+
+`audio/<plugin>.mp3` are short demo clips (about 30 s) rendered offline with the real plugin code, played by the Listen button on the page. One Shooter and Quad Shooter use synthetic demo samples.
