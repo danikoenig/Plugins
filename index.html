@@ -73,6 +73,7 @@ h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 18px;font-weight:8
 .meta span{font-size:13px;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
 .small{font-size:14px;min-height:44px;padding:8px 14px}
+.btn.off{opacity:.55;cursor:default;box-shadow:none;filter:saturate(.6)}.ver.soon{color:var(--c);border-color:var(--c)}
 .star.wide .sgrid{grid-template-columns:minmax(0,1fr)}
 .star.wide .big{order:-1}
 .star.wide .txt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 48px;align-items:start}
@@ -106,7 +107,7 @@ footer p{margin:0;max-width:60ch}
     <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
     <span><b>DANI KOENIG</b><small>Plugins</small></span>
   </a>
-  <nav aria-label="Plugins"><a href="#the-one">The One</a><a href="#siren">Siren</a><a href="#one-shooter">One Shooter</a><a href="#quad-shooter">Quad Shooter</a><a href="#drift-station">Drift Station</a><a href="#repetitor">Repetitor</a><a href="#knack">Knack</a><a href="#install">Install</a></nav>
+  <nav aria-label="Plugins"><a href="#the-one">The One</a><a href="#siren">Siren</a><a href="#one-shooter">One Shooter</a><a href="#quad-shooter">Quad Shooter</a><a href="#drift-station">Drift Station</a><a href="#repetitor">Repetitor</a><a href="#grinder">Grinder</a><a href="#knack">Knack</a><a href="#install">Install</a></nav>
 </div></header>
 
 <main id="top" class="wrap">
@@ -115,7 +116,7 @@ footer p{margin:0;max-width:60ch}
       <h1>Free plugins for macOS</h1>
       <p class="lead">A polyphonic synth, sample players, drones, MIDI tools and a clipper I build for my own music production in Zuerich. VST3 and Audio Unit for Apple Silicon, free to download.</p>
       <ul class="chips">
-        <li><span class="dot"></span>7 plugins</li>
+        <li><span class="dot"></span>8 plugins</li>
         <li><span class="dot" style="--c:var(--gr)"></span>Free</li>
         <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU</li>
         <li><span class="dot" style="--c:var(--vi)"></span>Apple Silicon</li>
@@ -188,6 +189,10 @@ footer p{margin:0;max-width:60ch}
      sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
      feat:['4 channels with their own rate and gate, runs right away or on MIDI in','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
      meta:['VST3','AU','MIDI effect'], reel:'U7TJUvq_EYM', manual:true},
+    {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.0', c:'#f7d154', img:'grinder', soon:true,
+     sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
+     feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
+     meta:['VST3','AU','CLAP','MIDI effect']},
     {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.2', c:'var(--rd)', img:'knack', tall:true,
      sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
      feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
@@ -207,15 +212,15 @@ footer p{margin:0;max-width:60ch}
         <div class="txt">
           <p class="kind"><span class="dot"></span>${p.kind}</p>
           <h2>${p.name}</h2>
-          <span class="ver" data-repo="${p.repo}">v${p.ver}</span>
+          ${p.soon ? `<span class="ver soon">Coming soon</span>` : `<span class="ver" data-repo="${p.repo}">v${p.ver}</span>`}
           <p class="sub">${p.sub}</p>
           <ul class="feat">${p.feat.map(f => `<li>${f}</li>`).join('')}</ul>
           <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
           <div class="acts">
-            <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
+            ${p.soon ? `<span class="btn main off">Release coming soon</span>` : `<a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>`}
             ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
             ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
-            <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
+            ${p.soon ? '' : `<a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>`}
             <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
           </div>
         </div>
