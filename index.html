@@ -230,35 +230,35 @@ footer p{margin:0;max-width:60ch}
   // Edit here. reel = YouTube Shorts ID (youtube.com/shorts/ID), leave '' to hide the Watch reel button.
   const GH = 'https://github.com/danikoenig/';
   const plugins = [
-    {kind:'Polyphonic synth', repo:'TheOne', name:'The One', ver:'1.4.3', c:'#ff8a3d', img:'the-one', wide:true,
+    {kind:'Polyphonic synth', repo:'TheOne', name:'The One', ver:'1.4.4', c:'#ff8a3d', img:'the-one', wide:true,
      sub:'16-voice polyphonic synth, inspired by the Moog One. Big wide panel, every control on the surface, no menus.',
      feat:['3 oscillators with wave angle, pulse, hard sync and FM, plus sub oscillator, ring mod and noise','State variable and ladder filter, in series or parallel, 3 envelopes and 4 LFOs with tempo sync','Chord Memory: learn a chord, every key plays it transposed. Unison, glide, hold','16-step sequencer: pitch, octave, slide and accent per step, random variations, mute/skip, random order','3 effect slots: delays, chorus, flanger, phaser, bit crusher, resonator'],
      meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'cZ8G3KyylnQ'},
-    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.2', c:'#ffab4a', img:'siren',
+    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.3', c:'#ffab4a', img:'siren',
      sub:'Drone generator. Play one note and 21 oscillators swell in slowly, from seconds to minutes. Inspired by the Eurorack module of the same name.',
      feat:['3 bundles (low, mid, high) with their own filter, fine detune and FM between bundles','Just Intonation chord sets from octaves to minor 9, morphed with one knob','One LFO per bundle, steered with an XY pad: cutoff, resonance, level or pitch','Long reverb, stereo widening with slow drift, limiter with auto gain'],
      meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'IF6-E7bdcMA'},
-    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.3', c:'#ff8a3d', img:'one-shooter',
+    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.4', c:'#ff8a3d', img:'one-shooter',
      sub:'Sample player for one-shots, like a drum sampler. Inspired by Ableton’s Drum Sampler.',
      feat:['Note-value grid on the waveform, synced to your DAW tempo','Pitch and amp envelope, sub oscillator, duck gate','Knack-style clipper with auto gain, output limiter','Library: drop a folder, all one-shots indexed, files stay where they are'],
      meta:['VST3','AU','CLAP','Instrument'], reel:'hZExpdoyzUo'},
-    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.2', c:'#4fb8ee', img:'quad-shooter',
+    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.3', c:'#4fb8ee', img:'quad-shooter',
      sub:'Sample player with 4 slots. Blend four samples with one dot on the XY pad.',
      feat:['4 slots with edit row: start, level, pan, envelope, pitch, tone, cut','Pitch detection and Key Sync to a lead slot','Delay, reverb and clipper in a chain you can reorder','Shares the library with One Shooter'],
      meta:['VST3','AU','CLAP','Instrument'], reel:'jHZN9FCeQIA'},
-    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.3', c:'#4fd1e0', img:'drift-station',
+    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.4', c:'#4fd1e0', img:'drift-station',
      sub:'Drifting memory processor. Records what you feed it and keeps recombining it into evolving drones.',
      feat:['2 Delays, 4 Delays, Giant Reverb and Granular, each in 3 sizes','Pitch stays steady, made for soloing over a recorded drone','Transpose -24 to +12, feedback up to 1.25 with soft limiter','Slow left-right sway like the hardware, resizable window'],
      meta:['VST3','AU','CLAP','Standalone','Audio effect'], reel:'9O9eUDGFMPw'},
-    {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.0', c:'#f7d154', img:'grinder',
+    {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.1', c:'#f7d154', img:'grinder',
      sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
      feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
      meta:['VST3','AU','CLAP','MIDI effect'], reel:'AdwVZ1AL0UI'},
-    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.2', c:'#a78bfa', img:'repetitor',
+    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.3', c:'#a78bfa', img:'repetitor',
      sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
      feat:['4 channels with their own rate and gate, runs right away or on MIDI in','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
      meta:['VST3','AU','CLAP','MIDI effect'], reel:'U7TJUvq_EYM', manual:true},
-    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.2', c:'#f0485a', img:'knack', tall:true,
+    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.3', c:'#f0485a', img:'knack', tall:true,
      sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
      feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
      meta:['VST3','AU','CLAP','Audio effect'], reel:'afLPPoGCYoA'}
@@ -274,7 +274,7 @@ footer p{margin:0;max-width:60ch}
   const acts = p => `<div class="acts">
         <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
         ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
-        ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
+        <a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>
         <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
         <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
       </div>`;
