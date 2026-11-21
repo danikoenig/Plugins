@@ -4,85 +4,108 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plugins by Dani Koenig</title>
-<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Grinder, Repetitor, Knack.">
+<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Repetitor, Grinder, Knack.">
 <meta property="og:title" content="Plugins by Dani Koenig">
 <meta property="og:description" content="Free VST3 / AU / CLAP plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
 <meta property="og:image" content="img/the-one.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a producer's own plugin shelf, confident and calm, no hype
-   IDEA: the page is built like the plugin windows: dark panels, coloured dot labels, glowing knobs
-   PICTURE: all plugin windows as an even tile grid in the hero
-   COLOUR and TYPE: plugin charcoal #121316, panel #1c1d21, orange #ff8a3d accent, slot colours per line; Inter
-   LAYOUT: header, hero with tile grid, one band per line (Synth, Sample players, Drones, MIDI, Effects), install steps, footer */
-:root{color-scheme:dark;--bg:#121316;--panel:#1c1d21;--panel2:#232429;--line:#2c2d33;--ink:#ececef;--mute:#9a9ca4;
---or:#ff8a3d;--or2:#ffab4a;--cy:#4fd1e0;--vi:#a78bfa;--gr:#5ee6a8;--bl:#4fb8ee;--rd:#f0485a}
-:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+   IDEA: one stage, one plugin at a time. The colour, the light and the moving lines follow the plugin you pick
+   PICTURE: big outlined names on the left, the plugin window floating in coloured light on the right
+   COLOUR and TYPE: plugin charcoal #121316, accent per plugin (animated), Inter 800 uppercase for names
+   LAYOUT: header, full-height stage (index + window + info), what's inside, install steps, footer */
+@property --ac{syntax:'<color>';inherits:true;initial-value:#ff8a3d}
+:root{color-scheme:dark;--bg:#0f1012;--panel:#1a1b1f;--panel2:#232429;--line:#2a2b31;--ink:#f1f1f3;--mute:#9a9ca4;--or:#ff8a3d;--gr:#5ee6a8}
 *{box-sizing:border-box;min-width:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
 a{color:inherit}
-.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
-header{position:sticky;top:0;z-index:5;background:rgba(18,19,22,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:18px;min-height:64px;flex-wrap:wrap}
+.wrap{max-width:1360px;margin:0 auto;padding:0 max(4vw,18px)}
+header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(15,16,18,.9),rgba(15,16,18,.55));backdrop-filter:blur(12px)}
+.bar{display:flex;align-items:center;gap:8px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
-.brand b{font-weight:800;letter-spacing:.01em}.brand small{display:block;color:var(--mute);font-size:13px;line-height:1.1}
-nav{display:flex;gap:4px;flex-wrap:wrap}
-nav a{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
-nav a:hover,nav a:focus-visible{color:var(--ink);background:var(--panel)}
-.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(36px,6vw,84px) 0 clamp(28px,4vw,56px)}
-h1{font-size:clamp(36px,5vw,56px);line-height:1.14;margin:0 0 26px;font-weight:800;text-wrap:balance;letter-spacing:-.015em}
-.lead{font-size:18px;line-height:1.65;color:var(--mute);max-width:36em;margin:0 0 34px}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 36px;padding:0;list-style:none}
-.chips li{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--or));box-shadow:0 0 10px var(--c,var(--or));flex:none}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);white-space:nowrap;transition:border-color .15s,background .15s}
-.btn:hover{border-color:#44464e}.btn:focus-visible,nav a:focus-visible{outline:2px solid var(--or);outline-offset:2px}
-.btn.main{background:linear-gradient(180deg,var(--or2),var(--or));color:#1b1209;border-color:transparent;box-shadow:0 6px 24px -8px rgba(255,138,61,.6)}
-.btn.main:hover{filter:brightness(1.06)}
-.btn svg{width:18px;height:18px;flex:none}
-.hero{grid-template-columns:minmax(0,1fr);gap:clamp(40px,5vw,72px);padding:clamp(48px,7vw,104px) 0 clamp(36px,5vw,72px)}
-.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
-.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s,transform .15s,box-shadow .15s}
-.tile:hover,.tile:focus-visible{border-color:var(--c);transform:translateY(-2px);box-shadow:0 14px 34px -16px var(--c);outline:none}
-.tile .pic{display:block;aspect-ratio:16/9;background:#0d0e10;overflow:hidden}
-.tile img{display:block;width:100%;height:100%;object-fit:contain}
-.tile.cover img{object-fit:cover;object-position:left top}
-.tile .nm{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:14px;font-weight:600}
-.line{padding:clamp(36px,5vw,72px) 0;border-top:1px solid var(--line)}
-.lhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
-.lhead h2{font-size:32px;line-height:1.1;margin:0;font-weight:800;display:flex;align-items:center;gap:12px}
-.lhead p{margin:0;color:var(--mute)}
-.star{margin-inline:calc(50% - 50vw);overflow:clip;position:relative;padding:clamp(44px,7vw,104px) 0;border-top:1px solid var(--line);isolation:isolate}
-.star::before{content:"";position:absolute;z-index:-1;width:min(900px,80vw);aspect-ratio:1;top:50%;right:-10%;transform:translateY(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 22%,transparent),transparent);pointer-events:none}
-.star.flip::before{right:auto;left:-10%}
-.sgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4.5vw,64px);align-items:center}
-.star.flip .sgrid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.star.flip .big{order:-1}
-.big{display:block;border-radius:16px;overflow:hidden;border:1px solid #33343a;background:#0d0e10;box-shadow:0 40px 80px -30px rgba(0,0,0,.85),0 0 60px -20px var(--c)}
-.big img{display:block;width:100%;height:auto;transition:transform .6s}
-.big:hover img{transform:scale(1.015)}
-.kind{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--c);margin:0 0 10px}
-.star h2{font-size:clamp(40px,5.6vw,68px);line-height:1;margin:0 0 6px;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance}
-.ver{display:inline-block;font-size:13px;font-weight:600;color:var(--mute);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums;margin:6px 0 18px;justify-self:start}
-.sub{margin:0 0 18px;font-size:17px;color:var(--ink);max-width:36em}
-.feat{margin:0 0 18px;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;color:var(--mute)}
-.feat li{display:flex;gap:10px;align-items:baseline}.feat li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c);flex:none;transform:translateY(-2px)}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.brand b{font-weight:800;letter-spacing:.02em}.brand small{display:block;color:var(--mute);font-size:13px;line-height:1.1}
+.bar a.lnk{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
+.bar a.lnk:hover{color:var(--ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ac,var(--or));outline-offset:3px;border-radius:6px}
+
+/* STAGE */
+.stage{--ac:#ff8a3d;transition:--ac .9s ease;position:relative;isolation:isolate;overflow:clip;margin-top:-64px;padding-top:64px;min-height:max(680px,100svh)}
+#wave{position:absolute;inset:0;width:100%;height:100%;z-index:-3;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 90%,transparent)}
+.glow{position:absolute;z-index:-4;inset:0;background:
+  radial-gradient(60% 70% at 78% 46%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 70%),
+  radial-gradient(40% 50% at 8% 100%,color-mix(in srgb,var(--ac) 14%,transparent),transparent 70%)}
+.grain{position:absolute;inset:0;z-index:-2;opacity:.09;mix-blend-mode:overlay;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,72px);align-items:center;min-height:calc(max(680px,100svh) - 64px);padding-block:clamp(16px,3svh,40px) clamp(40px,7svh,72px)}
+.kick{display:flex;align-items:center;gap:10px;margin:0 0 clamp(12px,2.4svh,26px);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.kick i{width:36px;height:1px;background:var(--ac)}
+
+.idx{list-style:none;margin:0;padding:0}
+.idx button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:flex-start;gap:14px;max-width:100%;
+  font-weight:900;text-transform:uppercase;letter-spacing:-.025em;font-size:clamp(30px,min(5.4vw,7.1svh),84px);line-height:1.04;
+  color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.3);white-space:nowrap;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),color .35s,-webkit-text-stroke-color .35s,text-shadow .5s}
+.idx button small{font:600 12px/1 Inter,sans-serif;letter-spacing:.1em;color:var(--mute);-webkit-text-stroke:0;margin-top:.9em;font-variant-numeric:tabular-nums;transition:color .35s}
+.idx button:hover{-webkit-text-stroke-color:var(--ac)}
+.idx button[aria-current=true]{color:var(--ac);-webkit-text-stroke-color:var(--ac);transform:translateX(clamp(8px,1.6vw,26px));text-shadow:0 0 60px color-mix(in srgb,var(--ac) 55%,transparent)}
+.idx button[aria-current=true] small{color:var(--ac)}
+.idx button:focus-visible{outline:2px solid var(--ac);outline-offset:4px}
+
+.right{position:relative;display:grid;gap:clamp(14px,2.6svh,28px)}
+.viz{position:relative;height:clamp(250px,50svh,540px);perspective:1500px;touch-action:pan-y}
+.tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.shot{position:absolute;inset:0;display:grid;place-items:center;align-items:end;opacity:0;pointer-events:none;
+  transform:translate3d(40px,18px,-80px) rotateY(-14deg) scale(.94);filter:blur(10px);
+  transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1),filter .6s}
+.shot.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.shot a{display:block;max-width:100%;max-height:100%;border-radius:14px;line-height:0;box-shadow:0 50px 90px -30px rgba(0,0,0,.9),0 0 90px -24px var(--ac),0 0 0 1px rgba(255,255,255,.1);animation:float 7s ease-in-out infinite}
+.shot img{display:block;max-width:100%;max-height:clamp(250px,50svh,540px);width:auto;height:auto;border-radius:14px}
+@keyframes float{50%{transform:translateY(-8px)}}
+.ref{position:absolute;left:8%;right:8%;bottom:-6px;height:34px;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 45%,transparent),transparent);filter:blur(12px);opacity:.7;pointer-events:none}
+
+.info{display:grid;gap:14px;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.kind{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ac);font-size:15px;margin-right:auto}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--ac));box-shadow:0 0 12px var(--c,var(--ac));flex:none}
+.ver{font-size:13px;font-weight:600;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-variant-numeric:tabular-nums;background:rgba(0,0,0,.25)}
+.nav2{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.nav2 button{all:unset;cursor:pointer;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.25);transition:border-color .2s,color .2s}
+.nav2 button:hover{border-color:var(--ac);color:var(--ac)}
+.nav2 button svg{width:16px;height:16px}
+.sub{margin:0;font-size:clamp(16px,1.35vw,19px);max-width:38em}
+.meta{display:flex;flex-wrap:wrap;gap:6px}
 .meta span{font-size:13px;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap}
 .acts{display:flex;flex-wrap:wrap;gap:8px}
-.small{font-size:14px;min-height:44px;padding:8px 14px}
-.btn.off{opacity:.55;cursor:default;box-shadow:none;filter:saturate(.6)}.ver.soon{color:var(--c);border-color:var(--c)}
-.star.wide .sgrid{grid-template-columns:minmax(0,1fr)}
-.star.wide .big{order:-1}
-.star.wide .txt{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 48px;align-items:start}
-.star.wide .feat{grid-column:2;grid-row:1 / span 6;margin-top:8px}
-.star.wide::before{top:30%;right:10%}
-.star.tall .sgrid{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}.star.tall.flip .sgrid{grid-template-columns:minmax(0,4fr) minmax(0,7fr)}
-.star.tall .big{max-width:340px;justify-self:center}
-.note{font-size:14px;color:var(--mute);margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);white-space:nowrap;transition:border-color .2s,background .2s,transform .2s}
+.btn:hover{border-color:var(--ac);transform:translateY(-1px)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.main{background:var(--ac);color:#111;border-color:transparent;box-shadow:0 10px 36px -10px var(--ac)}
+.btn.main:hover{filter:brightness(1.08)}
+.btn.small{font-size:14px;padding:8px 14px}
+.scroll{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);text-decoration:none;display:grid;justify-items:center;gap:6px;opacity:.75}
+.scroll::after{content:"";width:1px;height:26px;background:linear-gradient(var(--ac),transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* WHAT'S INSIDE */
+.more{--ac:#ff8a3d;transition:--ac .9s ease;padding:clamp(56px,9vw,130px) 0;border-top:1px solid var(--line);position:relative}
+.mgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,80px);align-items:start}
+.more h2{margin:0;font-size:clamp(44px,7vw,110px);line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;color:var(--ac)}
+.more .lab{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:0 0 14px}
+.fl{list-style:none;margin:0;padding:0;counter-reset:f}
+.fl li{counter-increment:f;display:grid;grid-template-columns:48px 1fr;gap:12px;padding:18px 0;border-top:1px solid var(--line);font-size:clamp(16px,1.5vw,20px);animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.fl li:last-child{border-bottom:1px solid var(--line)}
+.fl li::before{content:"0" counter(f);font-size:13px;font-weight:700;color:var(--ac);padding-top:.5em;font-variant-numeric:tabular-nums}
+
+/* INSTALL */
+.line{padding:clamp(40px,6vw,88px) 0;border-top:1px solid var(--line)}
+.lhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.lhead h2{font-size:34px;line-height:1.1;margin:0;font-weight:800;display:flex;align-items:center;gap:12px}
+.lhead p{margin:0;color:var(--mute)}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;counter-reset:s;margin:0;padding:0;list-style:none}
-.steps li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;counter-increment:s}
+.steps li{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;counter-increment:s}
 .steps li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--panel2);border:1px solid var(--or);color:var(--or);font-weight:700;margin-bottom:12px}
 .steps b{display:block;margin-bottom:4px}
 .steps p{margin:0;color:var(--mute);font-size:15px}
@@ -95,10 +118,23 @@ details p{color:var(--mute);margin:0 0 14px}
 footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mute);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 footer p{margin:0;max-width:60ch}
-@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.sgrid,.star.tall .sgrid,.star.flip .sgrid,.star.tall.flip .sgrid{grid-template-columns:minmax(0,1fr)}.big,.star.flip .big{order:-1}.star.wide .txt{display:block}.star::before{right:-30%;left:auto;top:20%}}
-@media(max-width:860px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){nav{display:none}.lhead h2{font-size:26px}.acts .btn{flex:1 1 auto}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+@media(max-width:900px){
+  .stage{min-height:0}
+  .sgrid{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:12px;padding-bottom:64px;gap:18px}
+  .idx{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:calc(-1 * max(4vw,18px));padding-inline:max(4vw,18px);scrollbar-width:none}
+  .idx::-webkit-scrollbar{display:none}
+  .idx li{flex:none;scroll-snap-align:center}
+  .idx button{font-size:40px}
+  .idx button[aria-current=true]{transform:none}
+  .viz{height:clamp(200px,34svh,380px)}
+  .shot img{max-height:clamp(200px,34svh,380px)}
+  .mgrid{grid-template-columns:minmax(0,1fr)}
+  .scroll{display:none}
+  .nav2 .cnt{display:none}
+}
+@media(max-width:600px){.kick .fm{display:none}.bar a.lnk.opt{display:none}.acts .btn{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -107,36 +143,35 @@ footer p{margin:0;max-width:60ch}
     <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
     <span><b>DANI KOENIG</b><small>Plugins</small></span>
   </a>
-  <nav aria-label="Plugins"><a href="#the-one">The One</a><a href="#siren">Siren</a><a href="#one-shooter">One Shooter</a><a href="#quad-shooter">Quad Shooter</a><a href="#drift-station">Drift Station</a><a href="#grinder">Grinder</a><a href="#repetitor">Repetitor</a><a href="#knack">Knack</a><a href="#install">Install</a></nav>
+  <a class="lnk opt" href="#inside">What's inside</a>
+  <a class="lnk" href="#install">Install</a>
+  <a class="lnk opt" href="https://github.com/danikoenig">GitHub</a>
 </div></header>
 
-<main id="top" class="wrap">
-  <section class="hero">
-    <div>
-      <h1>Free plugins for macOS</h1>
-      <p class="lead">A polyphonic synth, sample players, drones, MIDI tools and a clipper I build for my own music production in Zuerich. VST3, Audio Unit and CLAP for Apple Silicon, free to download.</p>
-      <ul class="chips">
-        <li><span class="dot"></span>8 plugins</li>
-        <li><span class="dot" style="--c:var(--gr)"></span>Free</li>
-        <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU + CLAP</li>
-        <li><span class="dot" style="--c:var(--vi)"></span>Apple Silicon</li>
-      </ul>
-      <a class="btn main" href="#the-one">Browse plugins</a>
+<main id="top">
+  <section class="stage" id="stage">
+    <div class="glow"></div><canvas id="wave" aria-hidden="true"></canvas><div class="grain"></div>
+    <div class="wrap sgrid">
+      <div class="left">
+        <p class="kick"><i></i>Free plugins for macOS<span class="fm">&nbsp;&middot; VST3 &middot; AU &middot; CLAP</span></p>
+        <ul class="idx" id="idx" aria-label="Plugins"></ul>
+      </div>
+      <div class="right">
+        <div class="viz" id="viz"><div class="tilt" id="tilt"></div><div class="ref"></div></div>
+        <div class="info" id="info" aria-live="polite"></div>
+      </div>
     </div>
-    <ul class="tiles">
-      <li><a class="tile" href="#the-one" style="--c:var(--or)"><span class="pic"><img src="img/the-one.jpg" alt="The One plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>The One</span></a></li>
-      <li><a class="tile" href="#siren" style="--c:var(--or2)"><span class="pic"><img src="img/siren.jpg" alt="Siren plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Siren</span></a></li>
-      <li><a class="tile" href="#one-shooter" style="--c:var(--or)"><span class="pic"><img src="img/one-shooter.jpg" alt="One Shooter plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>One Shooter</span></a></li>
-      <li><a class="tile" href="#quad-shooter" style="--c:var(--bl)"><span class="pic"><img src="img/quad-shooter.jpg" alt="Quad Shooter plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Quad Shooter</span></a></li>
-      <li><a class="tile" href="#drift-station" style="--c:var(--cy)"><span class="pic"><img src="img/drift-station.jpg" alt="Drift Station plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Drift Station</span></a></li>
-      <li><a class="tile" href="#grinder" style="--c:#f7d154"><span class="pic"><img src="img/grinder.jpg" alt="Grinder plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Grinder</span></a></li>
-      <li><a class="tile" href="#repetitor" style="--c:var(--vi)"><span class="pic"><img src="img/repetitor.jpg" alt="Repetitor plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Repetitor</span></a></li>
-      <li><a class="tile" href="#knack" style="--c:var(--rd)"><span class="pic"><img src="img/knack.jpg" alt="Knack plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Knack</span></a></li>
-    </ul>
+    <a class="scroll" href="#inside">More</a>
   </section>
 
-  <div id="plugins"></div>
+  <section class="more" id="inside">
+    <div class="wrap mgrid">
+      <div><p class="lab">What's inside</p><h2 id="mname">The One</h2></div>
+      <ol class="fl" id="mfeat"></ol>
+    </div>
+  </section>
 
+  <div class="wrap">
   <section class="line" id="install">
     <div class="lhead"><h2><span class="dot" style="--c:var(--gr)"></span>Install</h2><p>No Terminal needed. The first time takes one extra click.</p></div>
     <ol class="steps">
@@ -155,6 +190,7 @@ footer p{margin:0;max-width:60ch}
       <p>Every plugin has its own uninstaller next to the download button. Download it, double-click it and allow it the same way as the installer.</p>
     </details>
   </section>
+  </div>
 </main>
 
 <footer><div class="wrap">
@@ -167,23 +203,23 @@ footer p{margin:0;max-width:60ch}
   // Edit here. reel = YouTube Shorts ID (youtube.com/shorts/ID), leave '' to hide the Watch reel button.
   const GH = 'https://github.com/danikoenig/';
   const plugins = [
-    {kind:'Polyphonic synth', repo:'TheOne', name:'The One', ver:'1.4.3', c:'var(--or)', img:'the-one', wide:true,
+    {kind:'Polyphonic synth', repo:'TheOne', name:'The One', ver:'1.4.3', c:'#ff8a3d', img:'the-one', wide:true,
      sub:'16-voice polyphonic synth, inspired by the Moog One. Big wide panel, every control on the surface, no menus.',
      feat:['3 oscillators with wave angle, pulse, hard sync and FM, plus sub oscillator, ring mod and noise','State variable and ladder filter, in series or parallel, 3 envelopes and 4 LFOs with tempo sync','Chord Memory: learn a chord, every key plays it transposed. Unison, glide, hold','16-step sequencer: pitch, octave, slide and accent per step, random variations, mute/skip, random order','3 effect slots: delays, chorus, flanger, phaser, bit crusher, resonator'],
      meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'cZ8G3KyylnQ'},
-    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.2', c:'var(--or2)', img:'siren',
+    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.2', c:'#ffab4a', img:'siren',
      sub:'Drone generator. Play one note and 21 oscillators swell in slowly, from seconds to minutes. Inspired by the Eurorack module of the same name.',
      feat:['3 bundles (low, mid, high) with their own filter, fine detune and FM between bundles','Just Intonation chord sets from octaves to minor 9, morphed with one knob','One LFO per bundle, steered with an XY pad: cutoff, resonance, level or pitch','Long reverb, stereo widening with slow drift, limiter with auto gain'],
      meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'IF6-E7bdcMA'},
-    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.3', c:'var(--or)', img:'one-shooter',
+    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.3', c:'#ff8a3d', img:'one-shooter',
      sub:'Sample player for one-shots, like a drum sampler. Inspired by Ableton’s Drum Sampler.',
      feat:['Note-value grid on the waveform, synced to your DAW tempo','Pitch and amp envelope, sub oscillator, duck gate','Knack-style clipper with auto gain, output limiter','Library: drop a folder, all one-shots indexed, files stay where they are'],
      meta:['VST3','AU','CLAP','Instrument'], reel:'hZExpdoyzUo'},
-    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.2', c:'var(--bl)', img:'quad-shooter',
+    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.2', c:'#4fb8ee', img:'quad-shooter',
      sub:'Sample player with 4 slots. Blend four samples with one dot on the XY pad.',
      feat:['4 slots with edit row: start, level, pan, envelope, pitch, tone, cut','Pitch detection and Key Sync to a lead slot','Delay, reverb and clipper in a chain you can reorder','Shares the library with One Shooter'],
      meta:['VST3','AU','CLAP','Instrument'], reel:'jHZN9FCeQIA'},
-    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.3', c:'var(--cy)', img:'drift-station',
+    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.3', c:'#4fd1e0', img:'drift-station',
      sub:'Drifting memory processor. Records what you feed it and keeps recombining it into evolving drones.',
      feat:['2 Delays, 4 Delays, Giant Reverb and Granular, each in 3 sizes','Pitch stays steady, made for soloing over a recorded drone','Transpose -24 to +12, feedback up to 1.25 with soft limiter','Slow left-right sway like the hardware, resizable window'],
      meta:['VST3','AU','CLAP','Standalone','Audio effect'], reel:'9O9eUDGFMPw'},
@@ -191,11 +227,11 @@ footer p{margin:0;max-width:60ch}
      sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
      feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
      meta:['VST3','AU','CLAP','MIDI effect'], reel:'AdwVZ1AL0UI'},
-    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.2', c:'var(--vi)', img:'repetitor',
+    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.2', c:'#a78bfa', img:'repetitor',
      sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
      feat:['4 channels with their own rate and gate, runs right away or on MIDI in','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
      meta:['VST3','AU','CLAP','MIDI effect'], reel:'U7TJUvq_EYM', manual:true},
-    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.2', c:'var(--rd)', img:'knack', tall:true,
+    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.2', c:'#f0485a', img:'knack', tall:true,
      sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
      feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
      meta:['VST3','AU','CLAP','Audio effect'], reel:'afLPPoGCYoA'}
@@ -208,36 +244,118 @@ footer p{margin:0;max-width:60ch}
   const dl = (p, f) => GH + p.repo + '/releases/latest/download/' + f;
   const fn = p => p.file || p.repo;
   const slug = p => p.name.toLowerCase().replace(/\s+/g, '-');
-  const star = (p, i) => `
-    <section class="star${p.wide ? ' wide' : ''}${p.tall ? ' tall' : ''}${!p.wide && i % 2 ? ' flip' : ''}" id="${slug(p)}" style="--c:${p.c}">
-      <div class="wrap sgrid">
-        <div class="txt">
-          <p class="kind"><span class="dot"></span>${p.kind}</p>
-          <h2>${p.name}</h2>
-          ${p.soon ? `<span class="ver soon">Coming soon</span>` : `<span class="ver" data-repo="${p.repo}">v${p.ver}</span>`}
-          <p class="sub">${p.sub}</p>
-          <ul class="feat">${p.feat.map(f => `<li>${f}</li>`).join('')}</ul>
-          <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
-          <div class="acts">
-            ${p.soon ? `<span class="btn main off">Release coming soon</span>` : `<a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>`}
-            ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
-            ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
-            ${p.soon ? '' : `<a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>`}
-            <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
-          </div>
-        </div>
-        <a class="big" href="${GH + p.repo}"><img src="img/${p.img}.jpg" alt="${p.name} plugin window" loading="lazy"></a>
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), more = $('inside'), idx = $('idx'), tilt = $('tilt'), viz = $('viz'), info = $('info');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = -1, pulse = 0;
+
+  // index + shots
+  idx.innerHTML = plugins.map((p, i) => `<li><button type="button" data-i="${i}">${p.name}<small>${String(i + 1).padStart(2, '0')}</small></button></li>`).join('');
+  tilt.innerHTML = plugins.map(p => `<div class="shot"><a href="${GH + p.repo}" tabindex="-1"><img src="img/${p.img}.jpg" alt="${p.name} plugin window"></a></div>`).join('');
+  const btns = [...idx.querySelectorAll('button')], shots = [...tilt.children];
+
+  function render(i) {
+    const p = plugins[i];
+    info.style.animation = 'none'; info.offsetWidth; info.style.animation = '';
+    info.innerHTML = `
+      <div class="head">
+        <span class="kind"><span class="dot"></span>${p.kind}</span>
+        <span class="ver" data-repo="${p.repo}">${p.ver ? 'v' + p.ver : ''}</span>
+        <span class="nav2"><button type="button" data-d="-1" aria-label="Previous plugin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cnt">${String(i + 1).padStart(2, '0')} / ${String(plugins.length).padStart(2, '0')}</span><button type="button" data-d="1" aria-label="Next plugin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button></span>
       </div>
-    </section>`;
-  document.getElementById('plugins').innerHTML = plugins.map(star).join('');
+      <p class="sub">${p.sub}</p>
+      <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
+      <div class="acts">
+        <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
+        ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
+        ${p.manual ? `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>` : ''}
+        <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
+        <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
+      </div>`;
+    $('mname').textContent = p.name;
+    $('mfeat').innerHTML = p.feat.map((f, k) => `<li style="animation-delay:${k * 70}ms">${f}</li>`).join('');
+  }
+
+  function select(i, o = {}) {
+    i = (i + plugins.length) % plugins.length;
+    if (i === cur) return;
+    cur = i;
+    const p = plugins[i];
+    stage.style.setProperty('--ac', p.c); more.style.setProperty('--ac', p.c);
+    btns.forEach((b, k) => b.setAttribute('aria-current', k === i ? 'true' : 'false'));
+    shots.forEach((s, k) => s.classList.toggle('on', k === i));
+    shots.forEach((s, k) => { const a = s.firstChild; a.tabIndex = k === i ? 0 : -1; });
+    render(i);
+    pulse = 1;
+    if (o.hash !== false) history.replaceState(null, '', '#' + slug(p));
+    if (innerWidth <= 900) { const b = btns[i]; idx.scrollTo({left: b.parentElement.offsetLeft - (idx.clientWidth - b.offsetWidth) / 2, behavior: 'smooth'}); }
+  }
+
+  btns.forEach((b, i) => {
+    b.addEventListener('click', () => select(i));
+    b.addEventListener('focus', () => select(i));
+    b.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && innerWidth > 900) select(i); });
+  });
+  idx.addEventListener('keydown', e => {
+    const d = {ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1}[e.key];
+    if (!d) return;
+    e.preventDefault(); const n = (cur + d + plugins.length) % plugins.length; btns[n].focus();
+  });
+  info.addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (b) select(cur + +b.dataset.d); });
+
+  // swipe on the window
+  let sx = null;
+  viz.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive: true});
+  viz.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) select(cur + (dx < 0 ? 1 : -1)); });
+
+  // tilt follows the pointer
+  if (!reduce) {
+    stage.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const r = viz.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / innerWidth, y = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+      tilt.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg'); tilt.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg');
+    });
+    stage.addEventListener('pointerleave', () => { tilt.style.setProperty('--ry', '0deg'); tilt.style.setProperty('--rx', '0deg'); });
+  }
+
+  // moving lines in the colour of the plugin
+  const cv = $('wave'), cx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  function size() { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function draw(t) {
+    cx.clearRect(0, 0, W, H);
+    const col = getComputedStyle(stage).getPropertyValue('--ac').trim() || '#ff8a3d';
+    cx.globalCompositeOperation = 'lighter'; cx.strokeStyle = col;
+    const boost = 1 + pulse * 1.4; pulse *= 0.965;
+    for (let k = 0; k < 9; k++) {
+      cx.beginPath(); cx.lineWidth = k % 3 === 0 ? 1.6 : 1; cx.globalAlpha = 0.07 + (k % 3) * 0.05;
+      for (let x = 0; x <= W; x += 8) {
+        const u = x / W, env = 0.35 + 0.65 * u;
+        const y = H * (0.5 + (k - 4) * 0.018) +
+          Math.sin(u * 6 + t * 0.00031 * (1 + k * 0.07) + k * 0.7) * H * 0.11 * env * boost +
+          Math.sin(u * 13 - t * 0.00047 + k) * H * 0.045 * env * boost;
+        x ? cx.lineTo(x, y) : cx.moveTo(x, y);
+      }
+      cx.stroke();
+    }
+    cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over';
+  }
+  size(); addEventListener('resize', () => { size(); if (reduce) draw(0); });
+  if (reduce) draw(4000); else { const loop = t => { draw(t); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+
+  // start: hash, else The One
+  const fromHash = () => { const h = location.hash.slice(1); const k = plugins.findIndex(p => slug(p) === h); return k; };
+  addEventListener('hashchange', () => { const k = fromHash(); if (k >= 0) select(k, {hash: false}); });
+  select(Math.max(0, fromHash()), {hash: false});
 
   // Live version from the latest GitHub release (works on GitHub Pages; falls back to the version above)
-  for (const el of document.querySelectorAll('.ver[data-repo]')) {
-    fetch('https://api.github.com/repos/danikoenig/' + el.dataset.repo + '/releases/latest')
+  plugins.forEach(p => {
+    fetch('https://api.github.com/repos/danikoenig/' + p.repo + '/releases/latest')
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d && d.tag_name) el.textContent = d.tag_name.startsWith('v') ? d.tag_name : 'v' + d.tag_name; })
+      .then(d => { if (d && d.tag_name) { p.ver = d.tag_name.replace(/^v/, ''); document.querySelectorAll('.ver[data-repo="' + p.repo + '"]').forEach(el => el.textContent = 'v' + p.ver); } })
       .catch(() => {});
-  }
+  });
 }
 </script>
 </body>

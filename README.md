@@ -1,6 +1,6 @@
 # Plugins by Dani Koenig
 
-Download page for my free macOS plugins: One Shooter, Quad Shooter, Drift Station, Siren, Repetitor.
+Download page for my free macOS plugins (one stage, one plugin at a time: pick a name, the colour, light and lines follow).
 
 ## Setup (GitHub Pages)
 
