@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plugins by Dani Koenig</title>
-<meta name="description" content="Free VST3 and Audio Unit plugins for macOS (Apple Silicon) by Dani Koenig: One Shooter, Quad Shooter, Drift Station, Siren, Repetitor.">
+<meta name="description" content="Free VST3 and Audio Unit plugins for macOS (Apple Silicon) by Dani Koenig: The One, One Shooter, Quad Shooter, Drift Station, Siren, Repetitor.">
 <meta property="og:title" content="Plugins by Dani Koenig">
-<meta property="og:description" content="Free VST3 / AU plugins for macOS. Sample players, drones and MIDI tools.">
-<meta property="og:image" content="img/quad-shooter.jpg">
+<meta property="og:description" content="Free VST3 / AU plugins for macOS. A polyphonic synth, sample players, drones and MIDI tools.">
+<meta property="og:image" content="img/the-one.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -15,7 +15,7 @@
    IDEA: the page is built like the plugin windows: dark panels, coloured dot labels, glowing knobs
    PICTURE: the four real plugin windows stacked like a rack in the hero
    COLOUR and TYPE: plugin charcoal #121316, panel #1c1d21, orange #ff8a3d accent, slot colours per line; Inter
-   LAYOUT: header, hero with rack, one band per line (Sample players, Drones, MIDI), install steps, footer */
+   LAYOUT: header, hero with rack, one band per line (Synth, Sample players, Drones, MIDI), install steps, footer */
 :root{color-scheme:dark;--bg:#121316;--panel:#1c1d21;--panel2:#232429;--line:#2c2d33;--ink:#ececef;--mute:#9a9ca4;
 --or:#ff8a3d;--or2:#ffab4a;--cy:#4fd1e0;--vi:#a78bfa;--gr:#5ee6a8;--bl:#4fb8ee;--rd:#f0485a}
 :root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
@@ -49,6 +49,7 @@ h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 18px;font-weight:8
 .rack img:nth-child(3){left:14%;top:22%;z-index:3}
 .rack img:nth-child(4){left:21%;top:33%;z-index:4}
 .rack img:nth-child(5){left:28%;top:44%;z-index:5}
+.rack img:nth-child(6){left:4%;top:56%;width:92%;z-index:6}
 .rack::after{content:"";position:absolute;inset:auto 0 -6% 8%;height:30%;background:radial-gradient(closest-side,rgba(255,138,61,.22),transparent);z-index:0;filter:blur(20px)}
 .line{padding:clamp(36px,5vw,72px) 0;border-top:1px solid var(--line)}
 .lhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
@@ -86,6 +87,9 @@ footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mute);fo
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 footer p{margin:0;max-width:60ch}
 @media(min-width:901px){.card:only-child{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr)}.card:only-child .shot{aspect-ratio:auto;height:100%;border-bottom:0;border-right:1px solid var(--line)}.card:only-child .shot img{object-fit:contain;object-position:center;background:#0d0e10}}
+.card.wide{display:flex!important;flex-direction:column}.card.wide .shot{aspect-ratio:2.5/1!important;height:auto!important;border-right:0!important;border-bottom:1px solid var(--line)!important}.card.wide .shot img{object-fit:cover!important}
+.card.wide .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 32px}.card.wide .body > *{grid-column:1}.card.wide .feat{grid-column:2;grid-row:1 / span 4}
+@media(max-width:860px){.card.wide .body{display:flex}}
 @media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.rack{order:-1;max-width:640px}}
 @media(max-width:600px){nav{display:none}.lhead h2{font-size:26px}.body{padding:18px}.acts .btn{flex:1 1 auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
@@ -97,21 +101,21 @@ footer p{margin:0;max-width:60ch}
     <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
     <span><b>DANI KOENIG</b><small>Plugins</small></span>
   </a>
-  <nav aria-label="Sections"><a href="#sample-players">Sample players</a><a href="#drones">Drones</a><a href="#midi">MIDI</a><a href="#install">Install</a></nav>
+  <nav aria-label="Sections"><a href="#synth">Synth</a><a href="#sample-players">Sample players</a><a href="#drones">Drones</a><a href="#midi">MIDI</a><a href="#install">Install</a></nav>
 </div></header>
 
 <main id="top" class="wrap">
   <section class="hero">
     <div>
       <h1>Free plugins for macOS</h1>
-      <p class="lead">Sample players, drones and MIDI tools I build for my own music production in Zuerich. VST3 and Audio Unit for Apple Silicon, free to download.</p>
+      <p class="lead">A polyphonic synth, sample players, drones and MIDI tools I build for my own music production in Zuerich. VST3 and Audio Unit for Apple Silicon, free to download.</p>
       <ul class="chips">
-        <li><span class="dot"></span>5 plugins</li>
+        <li><span class="dot"></span>6 plugins</li>
         <li><span class="dot" style="--c:var(--gr)"></span>Free</li>
         <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU</li>
         <li><span class="dot" style="--c:var(--vi)"></span>Apple Silicon</li>
       </ul>
-      <a class="btn main" href="#sample-players">Browse plugins</a>
+      <a class="btn main" href="#synth">Browse plugins</a>
     </div>
     <div class="rack" aria-hidden="true">
       <img src="img/siren.jpg" alt="">
@@ -119,7 +123,13 @@ footer p{margin:0;max-width:60ch}
       <img src="img/repetitor.jpg" alt="">
       <img src="img/one-shooter.jpg" alt="">
       <img src="img/quad-shooter.jpg" alt="">
+      <img src="img/the-one.jpg" alt="">
     </div>
+  </section>
+
+  <section class="line" id="synth">
+    <div class="lhead"><h2><span class="dot" style="--c:var(--or)"></span>Synth</h2><p>The flagship: a big polyphonic synth for pads, basses and leads.</p></div>
+    <div class="grid" data-line="synth"></div>
   </section>
 
   <section class="line" id="sample-players">
@@ -143,12 +153,12 @@ footer p{margin:0;max-width:60ch}
       <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
       <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
       <li><b>Allow it once</b><p>System Settings &gt; Privacy &amp; Security. Scroll down, click Open Anyway and enter your Mac password.</p></li>
-      <li><b>Install and rescan</b><p>Click Continue and Install. Restart your DAW and rescan plugins. VST3 and AU are both installed.</p></li>
+      <li><b>Install and rescan</b><p>Click Continue and Install. Restart your DAW and rescan plugins. VST3 and AU are both installed (The One also as CLAP).</p></li>
     </ol>
     <div class="req">
       <div><span>Computer</span>Mac with Apple Silicon (M1 or newer). Intel Macs are not supported.</div>
       <div><span>System</span>macOS 11 Big Sur or newer</div>
-      <div><span>DAW</span>Any VST3 host (Bitwig, Ableton Live, Cubase, Reaper ...) or AU host (Logic Pro, GarageBand)</div>
+      <div><span>DAW</span>Any VST3 host (Bitwig, Ableton Live, Cubase, Reaper ...), AU host (Logic Pro, GarageBand) or CLAP host for The One</div>
     </div>
     <details>
       <summary>Uninstall</summary>
@@ -159,7 +169,7 @@ footer p{margin:0;max-width:60ch}
 
 <footer><div class="wrap">
   <p>Made by Dani Koenig, DJ and producer from Zuerich. All plugins are free. Source code on <a href="https://github.com/danikoenig">GitHub</a>.</p>
-  <p>Drift Station is inspired by the SOMA Laboratory COSMOS, Siren by the Eurorack drone module of the same name, Repetitor by the Noise Engineering Gamut Repetitor. Independent projects, not affiliated with either company.</p>
+  <p>The One is inspired by the Moog One, Drift Station by the SOMA Laboratory COSMOS, Siren by the Eurorack drone module of the same name, Repetitor by the Noise Engineering Gamut Repetitor. Independent projects, not affiliated with any of these companies.</p>
 </div></footer>
 
 <script>
@@ -167,6 +177,10 @@ footer p{margin:0;max-width:60ch}
   // Edit here. reel = YouTube Shorts ID (youtube.com/shorts/ID), leave '' to hide the Watch reel button.
   const GH = 'https://github.com/danikoenig/';
   const plugins = [
+    {line:'synth', repo:'TheOne', name:'The One', ver:'1.0.0', c:'var(--or)', img:'the-one', wide:true,
+     sub:'16-voice polyphonic synth, inspired by the Moog One. Big wide panel, every control on the surface, no menus.',
+     feat:['3 oscillators with wave angle, pulse, hard sync and FM, plus sub oscillator, ring mod and noise','State variable and ladder filter, in series or parallel, 3 envelopes and 4 LFOs with tempo sync','Chord Memory: learn a chord, every key plays it transposed. Unison, glide, hold','16-step sequencer: pitch, pulse count, gate type, mute/skip per step, random order','3 effect slots: delays, chorus, flanger, phaser, bit crusher, resonator'],
+     meta:['VST3','AU','CLAP','Standalone','Instrument']},
     {line:'sample', repo:'OneShooter', name:'One Shooter', ver:'1.5.2', c:'var(--or)', img:'one-shooter',
      sub:'Sample player for one-shots, like a drum sampler. Inspired by Ableton’s Drum Sampler.',
      feat:['Note-value grid on the waveform, synced to your DAW tempo','Pitch and amp envelope, sub oscillator, duck gate','Knack-style clipper with auto gain, output limiter','Library: drop a folder, all one-shots indexed, files stay where they are'],
@@ -196,7 +210,7 @@ footer p{margin:0;max-width:60ch}
   const dl = (p, f) => GH + p.repo + '/releases/latest/download/' + f;
   const fn = p => p.file || p.repo;
   const card = p => `
-    <article class="card" style="--c:${p.c}">
+    <article class="card${p.wide ? ' wide' : ''}" style="--c:${p.c}">
       <a class="shot" href="${GH + p.repo}"><img src="img/${p.img}.jpg" alt="${p.name} plugin window" loading="lazy"></a>
       <div class="body">
         <div class="ttl"><span class="dot"></span><h3>${p.name}</h3><span class="ver" data-repo="${p.repo}">v${p.ver}</span></div>
