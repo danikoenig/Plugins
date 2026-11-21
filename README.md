@@ -1,6 +1,17 @@
 # Plugins by Dani Koenig
 
-Download page for my free macOS plugins (one stage, one plugin at a time: pick a name, the colour, light and lines follow).
+Download page for my free macOS plugins (VST3, Audio Unit, CLAP). One stage on top, then one section per plugin.
+
+| Plugin | Type | Repo |
+|---|---|---|
+| The One | Polyphonic synth | [TheOne](https://github.com/danikoenig/TheOne) |
+| Siren | Drone synth | [siren](https://github.com/danikoenig/siren) |
+| One Shooter | Sample player | [OneShooter](https://github.com/danikoenig/OneShooter) |
+| Quad Shooter | 4-slot sample player | [QuadShooter](https://github.com/danikoenig/QuadShooter) |
+| Drift Station | Drifting memory processor | [DriftStation](https://github.com/danikoenig/DriftStation) |
+| Grinder | Step sequencer | [Grinder](https://github.com/danikoenig/Grinder) |
+| Repetitor | MIDI generator | [Repetitor](https://github.com/danikoenig/Repetitor) |
+| Knack | Clipper | [Knack](https://github.com/danikoenig/Knack) |
 
 ## Setup (GitHub Pages)
 
@@ -10,7 +21,7 @@ Download page for my free macOS plugins (one stage, one plugin at a time: pick a
 
 ## How it updates
 
-- Download buttons point to `releases/latest/download/<Name>-Installer.pkg`, so they always deliver the newest release.
+- Download buttons point to `releases/latest/download/<Name>-Installer.pkg`, so they always deliver the newest release. Manuals (EN + DE) come from `releases/latest/download/<Name>-Manual-EN.pdf` and `-DE.pdf`.
 - The version badge is read live from the GitHub API. The version in `index.html` is only the fallback.
 
 ## Editing
