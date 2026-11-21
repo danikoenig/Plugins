@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plugins by Dani Koenig</title>
-<meta name="description" content="Free VST3 and Audio Unit plugins for macOS (Apple Silicon) by Dani Koenig: The One, One Shooter, Quad Shooter, Drift Station, Siren, Repetitor, Knack.">
+<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Grinder, Repetitor, Knack.">
 <meta property="og:title" content="Plugins by Dani Koenig">
-<meta property="og:description" content="Free VST3 / AU plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
+<meta property="og:description" content="Free VST3 / AU / CLAP plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
 <meta property="og:image" content="img/the-one.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a producer's own plugin shelf, confident and calm, no hype
    IDEA: the page is built like the plugin windows: dark panels, coloured dot labels, glowing knobs
-   PICTURE: the four real plugin windows stacked like a rack in the hero
+   PICTURE: all plugin windows as an even tile grid in the hero
    COLOUR and TYPE: plugin charcoal #121316, panel #1c1d21, orange #ff8a3d accent, slot colours per line; Inter
-   LAYOUT: header, hero with rack, one band per line (Synth, Sample players, Drones, MIDI, Effects), install steps, footer */
+   LAYOUT: header, hero with tile grid, one band per line (Synth, Sample players, Drones, MIDI, Effects), install steps, footer */
 :root{color-scheme:dark;--bg:#121316;--panel:#1c1d21;--panel2:#232429;--line:#2c2d33;--ink:#ececef;--mute:#9a9ca4;
 --or:#ff8a3d;--or2:#ffab4a;--cy:#4fd1e0;--vi:#a78bfa;--gr:#5ee6a8;--bl:#4fb8ee;--rd:#f0485a}
 :root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
@@ -32,9 +32,9 @@ nav{display:flex;gap:4px;flex-wrap:wrap}
 nav a{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
 nav a:hover,nav a:focus-visible{color:var(--ink);background:var(--panel)}
 .hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(36px,6vw,84px) 0 clamp(28px,4vw,56px)}
-h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 18px;font-weight:800;text-wrap:balance;letter-spacing:-.01em}
-.lead{font-size:17px;color:var(--mute);max-width:34em;margin:0 0 26px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;padding:0;list-style:none}
+h1{font-size:clamp(36px,5vw,56px);line-height:1.14;margin:0 0 26px;font-weight:800;text-wrap:balance;letter-spacing:-.015em}
+.lead{font-size:18px;line-height:1.65;color:var(--mute);max-width:36em;margin:0 0 34px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 36px;padding:0;list-style:none}
 .chips li{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--or));box-shadow:0 0 10px var(--c,var(--or));flex:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);white-space:nowrap;transition:border-color .15s,background .15s}
@@ -42,15 +42,14 @@ h1{font-size:clamp(36px,5vw,52px);line-height:1.05;margin:0 0 18px;font-weight:8
 .btn.main{background:linear-gradient(180deg,var(--or2),var(--or));color:#1b1209;border-color:transparent;box-shadow:0 6px 24px -8px rgba(255,138,61,.6)}
 .btn.main:hover{filter:brightness(1.06)}
 .btn svg{width:18px;height:18px;flex:none}
-.rack{position:relative;aspect-ratio:16/12}
-.rack img{position:absolute;width:72%;border-radius:12px;border:1px solid #33343a;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.03) inset}
-.rack img:nth-child(1){left:0;top:0;z-index:1}
-.rack img:nth-child(2){left:7%;top:11%;z-index:2}
-.rack img:nth-child(3){left:14%;top:22%;z-index:3}
-.rack img:nth-child(4){left:21%;top:33%;z-index:4}
-.rack img:nth-child(5){left:28%;top:44%;z-index:5}
-.rack img:nth-child(6){left:4%;top:56%;width:92%;z-index:6}
-.rack::after{content:"";position:absolute;inset:auto 0 -6% 8%;height:30%;background:radial-gradient(closest-side,rgba(255,138,61,.22),transparent);z-index:0;filter:blur(20px)}
+.hero{grid-template-columns:minmax(0,1fr);gap:clamp(40px,5vw,72px);padding:clamp(48px,7vw,104px) 0 clamp(36px,5vw,72px)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.tile{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .15s,transform .15s,box-shadow .15s}
+.tile:hover,.tile:focus-visible{border-color:var(--c);transform:translateY(-2px);box-shadow:0 14px 34px -16px var(--c);outline:none}
+.tile .pic{display:block;aspect-ratio:16/9;background:#0d0e10;overflow:hidden}
+.tile img{display:block;width:100%;height:100%;object-fit:contain}
+.tile.cover img{object-fit:cover;object-position:left top}
+.tile .nm{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:14px;font-weight:600}
 .line{padding:clamp(36px,5vw,72px) 0;border-top:1px solid var(--line)}
 .lhead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:26px}
 .lhead h2{font-size:32px;line-height:1.1;margin:0;font-weight:800;display:flex;align-items:center;gap:12px}
@@ -96,7 +95,8 @@ details p{color:var(--mute);margin:0 0 14px}
 footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--mute);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
 footer p{margin:0;max-width:60ch}
-@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.rack{order:-1;max-width:640px}.sgrid,.star.tall .sgrid,.star.flip .sgrid,.star.tall.flip .sgrid{grid-template-columns:minmax(0,1fr)}.big,.star.flip .big{order:-1}.star.wide .txt{display:block}.star::before{right:-30%;left:auto;top:20%}}
+@media(max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.sgrid,.star.tall .sgrid,.star.flip .sgrid,.star.tall.flip .sgrid{grid-template-columns:minmax(0,1fr)}.big,.star.flip .big{order:-1}.star.wide .txt{display:block}.star::before{right:-30%;left:auto;top:20%}}
+@media(max-width:860px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){nav{display:none}.lhead h2{font-size:26px}.acts .btn{flex:1 1 auto}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
@@ -107,30 +107,32 @@ footer p{margin:0;max-width:60ch}
     <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="17" r="12" fill="none" stroke="#ff8a3d" stroke-width="2.2"/><circle cx="15" cy="17" r="5" fill="#ff8a3d"/><circle cx="26" cy="6" r="3" fill="#ffab4a"/></svg>
     <span><b>DANI KOENIG</b><small>Plugins</small></span>
   </a>
-  <nav aria-label="Plugins"><a href="#the-one">The One</a><a href="#siren">Siren</a><a href="#one-shooter">One Shooter</a><a href="#quad-shooter">Quad Shooter</a><a href="#drift-station">Drift Station</a><a href="#repetitor">Repetitor</a><a href="#grinder">Grinder</a><a href="#knack">Knack</a><a href="#install">Install</a></nav>
+  <nav aria-label="Plugins"><a href="#the-one">The One</a><a href="#siren">Siren</a><a href="#one-shooter">One Shooter</a><a href="#quad-shooter">Quad Shooter</a><a href="#drift-station">Drift Station</a><a href="#grinder">Grinder</a><a href="#repetitor">Repetitor</a><a href="#knack">Knack</a><a href="#install">Install</a></nav>
 </div></header>
 
 <main id="top" class="wrap">
   <section class="hero">
     <div>
       <h1>Free plugins for macOS</h1>
-      <p class="lead">A polyphonic synth, sample players, drones, MIDI tools and a clipper I build for my own music production in Zuerich. VST3 and Audio Unit for Apple Silicon, free to download.</p>
+      <p class="lead">A polyphonic synth, sample players, drones, MIDI tools and a clipper I build for my own music production in Zuerich. VST3, Audio Unit and CLAP for Apple Silicon, free to download.</p>
       <ul class="chips">
         <li><span class="dot"></span>8 plugins</li>
         <li><span class="dot" style="--c:var(--gr)"></span>Free</li>
-        <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU</li>
+        <li><span class="dot" style="--c:var(--cy)"></span>VST3 + AU + CLAP</li>
         <li><span class="dot" style="--c:var(--vi)"></span>Apple Silicon</li>
       </ul>
       <a class="btn main" href="#the-one">Browse plugins</a>
     </div>
-    <div class="rack" aria-hidden="true">
-      <img src="img/siren.jpg" alt="">
-      <img src="img/drift-station.jpg" alt="">
-      <img src="img/repetitor.jpg" alt="">
-      <img src="img/one-shooter.jpg" alt="">
-      <img src="img/quad-shooter.jpg" alt="">
-      <img src="img/the-one.jpg" alt="">
-    </div>
+    <ul class="tiles">
+      <li><a class="tile" href="#the-one" style="--c:var(--or)"><span class="pic"><img src="img/the-one.jpg" alt="The One plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>The One</span></a></li>
+      <li><a class="tile" href="#siren" style="--c:var(--or2)"><span class="pic"><img src="img/siren.jpg" alt="Siren plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Siren</span></a></li>
+      <li><a class="tile" href="#one-shooter" style="--c:var(--or)"><span class="pic"><img src="img/one-shooter.jpg" alt="One Shooter plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>One Shooter</span></a></li>
+      <li><a class="tile" href="#quad-shooter" style="--c:var(--bl)"><span class="pic"><img src="img/quad-shooter.jpg" alt="Quad Shooter plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Quad Shooter</span></a></li>
+      <li><a class="tile" href="#drift-station" style="--c:var(--cy)"><span class="pic"><img src="img/drift-station.jpg" alt="Drift Station plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Drift Station</span></a></li>
+      <li><a class="tile" href="#grinder" style="--c:#f7d154"><span class="pic"><img src="img/grinder.jpg" alt="Grinder plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Grinder</span></a></li>
+      <li><a class="tile" href="#repetitor" style="--c:var(--vi)"><span class="pic"><img src="img/repetitor.jpg" alt="Repetitor plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Repetitor</span></a></li>
+      <li><a class="tile" href="#knack" style="--c:var(--rd)"><span class="pic"><img src="img/knack.jpg" alt="Knack plugin window" loading="lazy"></span><span class="nm"><span class="dot"></span>Knack</span></a></li>
+    </ul>
   </section>
 
   <div id="plugins"></div>
@@ -141,12 +143,12 @@ footer p{margin:0;max-width:60ch}
       <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
       <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
       <li><b>Allow it once</b><p>System Settings &gt; Privacy &amp; Security. Scroll down, click Open Anyway and enter your Mac password.</p></li>
-      <li><b>Install and rescan</b><p>Click Continue and Install. Restart your DAW and rescan plugins. VST3 and AU are both installed (The One, Grinder and Knack also as CLAP).</p></li>
+      <li><b>Install and rescan</b><p>Click Continue and Install. Restart your DAW and rescan plugins. VST3, AU and CLAP are installed together.</p></li>
     </ol>
     <div class="req">
       <div><span>Computer</span>Mac with Apple Silicon (M1 or newer). Intel Macs are not supported.</div>
       <div><span>System</span>macOS 11 Big Sur or newer</div>
-      <div><span>DAW</span>Any VST3 host (Bitwig, Ableton Live, Cubase, Reaper ...), AU host (Logic Pro, GarageBand) or CLAP host for The One, Grinder and Knack</div>
+      <div><span>DAW</span>Any VST3 host (Bitwig, Ableton Live, Cubase, Reaper ...), AU host (Logic Pro, GarageBand) or CLAP host (Bitwig, Reaper ...)</div>
     </div>
     <details>
       <summary>Uninstall</summary>
@@ -169,30 +171,30 @@ footer p{margin:0;max-width:60ch}
      sub:'16-voice polyphonic synth, inspired by the Moog One. Big wide panel, every control on the surface, no menus.',
      feat:['3 oscillators with wave angle, pulse, hard sync and FM, plus sub oscillator, ring mod and noise','State variable and ladder filter, in series or parallel, 3 envelopes and 4 LFOs with tempo sync','Chord Memory: learn a chord, every key plays it transposed. Unison, glide, hold','16-step sequencer: pitch, octave, slide and accent per step, random variations, mute/skip, random order','3 effect slots: delays, chorus, flanger, phaser, bit crusher, resonator'],
      meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'cZ8G3KyylnQ'},
-    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.1', c:'var(--or2)', img:'siren',
+    {kind:'Drone synth', repo:'siren', file:'Siren', name:'Siren', ver:'1.2.2', c:'var(--or2)', img:'siren',
      sub:'Drone generator. Play one note and 21 oscillators swell in slowly, from seconds to minutes. Inspired by the Eurorack module of the same name.',
      feat:['3 bundles (low, mid, high) with their own filter, fine detune and FM between bundles','Just Intonation chord sets from octaves to minor 9, morphed with one knob','One LFO per bundle, steered with an XY pad: cutoff, resonance, level or pitch','Long reverb, stereo widening with slow drift, limiter with auto gain'],
-     meta:['VST3','AU','Standalone','Instrument'], reel:'IF6-E7bdcMA'},
-    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.2', c:'var(--or)', img:'one-shooter',
+     meta:['VST3','AU','CLAP','Standalone','Instrument'], reel:'IF6-E7bdcMA'},
+    {kind:'Sample player', repo:'OneShooter', name:'One Shooter', ver:'1.5.3', c:'var(--or)', img:'one-shooter',
      sub:'Sample player for one-shots, like a drum sampler. Inspired by Ableton’s Drum Sampler.',
      feat:['Note-value grid on the waveform, synced to your DAW tempo','Pitch and amp envelope, sub oscillator, duck gate','Knack-style clipper with auto gain, output limiter','Library: drop a folder, all one-shots indexed, files stay where they are'],
-     meta:['VST3','AU','Instrument'], reel:'hZExpdoyzUo'},
-    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.1', c:'var(--bl)', img:'quad-shooter',
+     meta:['VST3','AU','CLAP','Instrument'], reel:'hZExpdoyzUo'},
+    {kind:'Sample player', repo:'QuadShooter', name:'Quad Shooter', ver:'0.4.2', c:'var(--bl)', img:'quad-shooter',
      sub:'Sample player with 4 slots. Blend four samples with one dot on the XY pad.',
      feat:['4 slots with edit row: start, level, pan, envelope, pitch, tone, cut','Pitch detection and Key Sync to a lead slot','Delay, reverb and clipper in a chain you can reorder','Shares the library with One Shooter'],
-     meta:['VST3','AU','Instrument'], reel:'jHZN9FCeQIA'},
-    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.2', c:'var(--cy)', img:'drift-station',
+     meta:['VST3','AU','CLAP','Instrument'], reel:'jHZN9FCeQIA'},
+    {kind:'Reverb and multi-effect', repo:'DriftStation', name:'Drift Station', ver:'0.3.3', c:'var(--cy)', img:'drift-station',
      sub:'Drifting memory processor. Records what you feed it and keeps recombining it into evolving drones.',
      feat:['2 Delays, 4 Delays, Giant Reverb and Granular, each in 3 sizes','Pitch stays steady, made for soloing over a recorded drone','Transpose -24 to +12, feedback up to 1.25 with soft limiter','Slow left-right sway like the hardware, resizable window'],
-     meta:['VST3','AU','Standalone','Audio effect'], reel:'9O9eUDGFMPw'},
-    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.1', c:'var(--vi)', img:'repetitor',
-     sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
-     feat:['4 channels with their own rate and gate, runs right away or on MIDI in','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
-     meta:['VST3','AU','MIDI effect'], reel:'U7TJUvq_EYM', manual:true},
+     meta:['VST3','AU','CLAP','Standalone','Audio effect'], reel:'9O9eUDGFMPw'},
     {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.0', c:'#f7d154', img:'grinder',
      sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
      feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
-     meta:['VST3','AU','CLAP','MIDI effect']},
+     meta:['VST3','AU','CLAP','MIDI effect'], reel:'AdwVZ1AL0UI'},
+    {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.2', c:'var(--vi)', img:'repetitor',
+     sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
+     feat:['4 channels with their own rate and gate, runs right away or on MIDI in','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
+     meta:['VST3','AU','CLAP','MIDI effect'], reel:'U7TJUvq_EYM', manual:true},
     {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.2', c:'var(--rd)', img:'knack', tall:true,
      sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
      feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
