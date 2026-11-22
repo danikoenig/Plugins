@@ -8,19 +8,17 @@
 <meta property="og:title" content="Plugins by Dani Koenig">
 <meta property="og:description" content="Free VST3 / AU / CLAP plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
 <meta property="og:image" content="img/the-one.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a producer's own plugin shelf, confident and calm, no hype
    IDEA: one stage, one plugin at a time. The colour, the light and the moving lines follow the plugin you pick
    PICTURE: big outlined names on the left, the plugin window floating in coloured light on the right
-   COLOUR and TYPE: plugin charcoal #121316, accent per plugin (animated), Inter 800 uppercase for names
+   COLOUR and TYPE: plugin charcoal #121316, accent per plugin (animated), Helvetica Neue bold uppercase for names
    LAYOUT: header, full-height stage (index + window + info), one section per plugin, install steps, footer */
 @property --ac{syntax:'<color>';inherits:true;initial-value:#ff8a3d}
 :root{color-scheme:dark;--bg:#0f1012;--panel:#1a1b1f;--panel2:#232429;--line:#2a2b31;--ink:#f1f1f3;--mute:#9a9ca4;--or:#ff8a3d;--gr:#5ee6a8}
 *{box-sizing:border-box;min-width:0}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Helvetica Neue",Helvetica,Arial,sans-serif;overflow-x:clip}
 a{color:inherit}
 .wrap{max-width:1360px;margin:0 auto;padding:0 max(4vw,18px)}
 header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(15,16,18,.9),rgba(15,16,18,.55));backdrop-filter:blur(12px)}
@@ -54,7 +52,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac,var(--or));outli
   font-weight:900;text-transform:uppercase;letter-spacing:-.025em;font-size:clamp(30px,min(5.4vw,7.1svh),84px);line-height:1.04;
   color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.3);white-space:nowrap;
   transition:transform .45s cubic-bezier(.2,.8,.2,1),color .35s,-webkit-text-stroke-color .35s,text-shadow .5s}
-.idx button small{font:600 12px/1 Inter,sans-serif;letter-spacing:.1em;color:var(--mute);-webkit-text-stroke:0;margin-top:.9em;font-variant-numeric:tabular-nums;transition:color .35s}
+.idx button small{font:600 12px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.1em;color:var(--mute);-webkit-text-stroke:0;margin-top:.9em;font-variant-numeric:tabular-nums;transition:color .35s}
 .idx button:hover{-webkit-text-stroke-color:var(--ac)}
 .idx button[aria-current=true]{color:var(--ac);-webkit-text-stroke-color:var(--ac);transform:translateX(clamp(8px,1.6vw,26px));text-shadow:0 0 60px color-mix(in srgb,var(--ac) 55%,transparent)}
 .idx button[aria-current=true] small{color:var(--ac)}
