@@ -98,11 +98,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ac,var(--or));outli
 .plug{position:relative;isolation:isolate;overflow:clip;padding:clamp(56px,8vw,120px) 0;border-top:1px solid var(--line)}
 .plug::before{content:"";position:absolute;z-index:-1;width:min(900px,85vw);aspect-ratio:1;top:50%;right:-14%;transform:translateY(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 20%,transparent),transparent 72%);pointer-events:none}
 .plug:nth-child(even)::before{right:auto;left:-14%}
-.pgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,88px);align-items:center}
-.plug:nth-child(even) .pgrid{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.pmain{container-type:inline-size;min-width:0}
+.pgrid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,88px);align-items:center}
+.plug:nth-child(even) .pgrid{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}
 .plug:nth-child(even) .pvis{order:-1}
 .plug .kick{margin-bottom:14px}
-.plug h2{margin:0 0 10px;font-size:clamp(44px,6.4vw,100px);line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;color:var(--ac);overflow-wrap:anywhere;text-shadow:0 0 70px color-mix(in srgb,var(--ac) 40%,transparent)}
+.plug h2{margin:0 0 10px;font-size:min(72px,calc(100cqi / (var(--n,8) * .76)));line-height:.95;font-weight:900;text-transform:uppercase;letter-spacing:-.03em;white-space:nowrap;color:var(--ac);text-shadow:0 0 70px color-mix(in srgb,var(--ac) 40%,transparent)}
 .plug .pv{margin:0 0 18px}
 .plug .sub{margin:0 0 18px}
 .plug .meta{margin-bottom:22px}
@@ -300,7 +301,7 @@ footer p{margin:0;max-width:60ch}
       <div class="wrap pgrid">
         <div class="pmain">
           <p class="kick"><i></i>${String(i + 1).padStart(2, '0')} / ${String(plugins.length).padStart(2, '0')} &middot; ${p.kind}</p>
-          <h2>${p.name}</h2>
+          <h2 style="--n:${p.name.length}">${p.name}</h2>
           <p class="pv"><span class="ver" data-repo="${p.repo}">v${p.ver}</span></p>
           <p class="sub">${p.sub}</p>
           <div class="meta">${p.meta.map(m => `<span>${m}</span>`).join('')}<span>macOS arm64</span></div>
