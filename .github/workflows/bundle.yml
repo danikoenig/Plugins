@@ -1,0 +1,47 @@
+name: All-in-one ZIP
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Collect the newest installers and manuals
+        run: |
+          set -e
+          mkdir -p "All Plugins"
+          for r in TheOne siren OneShooter QuadShooter DriftStation Grinder Repetitor Knack; do
+            gh release download -R "danikoenig/$r" -p '*-Installer.pkg' -p '*-Uninstaller.pkg' -p '*-Manual-*.pdf' -D "All Plugins"
+          done
+          mkdir -p "All Plugins/Uninstallers"
+          mv "All Plugins"/*-Uninstaller.pkg "All Plugins/Uninstallers/"
+          cat > "All Plugins/READ ME FIRST.txt" <<'TXT'
+          All 8 plugins by Dani Koenig - macOS (Apple Silicon)
+
+          1. Double-click an installer (*-Installer.pkg). One per plugin.
+          2. macOS says it can't check the file. Click Done, not Move to Trash.
+          3. System Settings > Privacy & Security > Open Anyway, enter your Mac password.
+          4. Click Continue and Install. Repeat for the other plugins.
+          5. Restart your DAW and rescan plugins. VST3, AU and CLAP are installed together.
+
+          PDF manuals (English and German) are in this folder too.
+          To remove a plugin later, use its uninstaller in the folder Uninstallers (same steps as above).
+          TXT
+          sed -i 's/^          //' "All Plugins/READ ME FIRST.txt"
+          ls -l "All Plugins"
+          test "$(ls "All Plugins"/*-Installer.pkg | wc -l)" -eq 8
+          test "$(ls "All Plugins/Uninstallers"/*.pkg | wc -l)" -eq 8
+          zip -r All-Plugins-macOS.zip "All Plugins"
+      - name: Publish release asset
+        run: |
+          gh release view -R "$GITHUB_REPOSITORY" all-plugins >/dev/null 2>&1 || \
+            gh release create -R "$GITHUB_REPOSITORY" all-plugins --title "All 8 plugins (ZIP)" --notes "All installers and manuals in one ZIP. Rebuilt every night." --latest
+          gh release upload -R "$GITHUB_REPOSITORY" all-plugins All-Plugins-macOS.zip --clobber

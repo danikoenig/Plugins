@@ -29,6 +29,11 @@ header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(1
 .brand b{font-weight:800;letter-spacing:.02em}.brand small{display:block;color:var(--mute);font-size:13px;line-height:1.1}
 .bar a.lnk{text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 12px;border-radius:9px}
 .bar a.lnk:hover{color:var(--ink)}
+.allzip{display:inline-block;margin-top:clamp(14px,2.4svh,26px);font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ac);padding-bottom:3px;transition:color .3s}
+.allzip:hover{color:var(--ac)}
+.allbox{display:flex;align-items:center;justify-content:space-between;gap:18px 28px;flex-wrap:wrap;margin:0 0 34px;padding:22px 26px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03)}
+.allbox b{display:block;font-size:20px;margin-bottom:4px}
+.allbox span{color:var(--mute);font-size:15px}
 .pn{display:flex;gap:2px;margin-right:6px}
 .pn a{flex:none;white-space:nowrap;text-decoration:none;color:var(--mute);font-size:14px;font-weight:500;padding:10px 10px;border-radius:9px;position:relative;transition:color .2s,background .2s}
 .pn a:hover{color:var(--ink)}
@@ -189,6 +194,7 @@ footer p{margin:0;max-width:60ch}
       <div class="left">
         <p class="kick"><i></i>Free plugins for macOS<span class="fm">&nbsp;&middot; VST3 &middot; AU &middot; CLAP</span></p>
         <ul class="idx" id="idx" aria-label="Plugins"></ul>
+        <a class="allzip" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 8 at once (ZIP)</a>
         <p class="allreel"><a class="btn small" href="https://www.youtube.com/shorts/bC0IxnP8FH4">8 free plugins in 46 seconds</a>
         <a class="btn small" href="https://www.youtube.com/watch?v=jK1zh6Ep2GA">All plugins, full presentation</a></p>
       </div>
@@ -205,6 +211,7 @@ footer p{margin:0;max-width:60ch}
   <div class="wrap">
   <section class="line" id="install">
     <div class="lhead"><h2><span class="dot" style="--c:var(--gr)"></span>Install</h2><p>No Terminal needed. The first time takes one extra click.</p></div>
+    <div class="allbox"><div><b>Want everything?</b><span>All 8 installers, uninstallers and manuals in one ZIP (about 100 MB).</span></div><a class="btn" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 8 (ZIP)</a></div>
     <ol class="steps">
       <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
       <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
