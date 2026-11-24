@@ -18,13 +18,13 @@ jobs:
         run: |
           set -e
           mkdir -p "All Plugins"
-          for r in TheOne siren OneShooter QuadShooter DriftStation Grinder Repetitor Knack; do
+          for r in TheOne siren OneShooter QuadShooter DriftStation Grinder Repetitor Knack Gain; do
             gh release download -R "danikoenig/$r" -p '*-Installer.pkg' -p '*-Uninstaller.pkg' -p '*-Manual-*.pdf' -D "All Plugins"
           done
           mkdir -p "All Plugins/Uninstallers"
           mv "All Plugins"/*-Uninstaller.pkg "All Plugins/Uninstallers/"
           cat > "All Plugins/READ ME FIRST.txt" <<'TXT'
-          All 8 plugins by Dani Koenig - macOS (Apple Silicon)
+          All 9 plugins by Dani Koenig - macOS (Apple Silicon)
 
           1. Double-click an installer (*-Installer.pkg). One per plugin.
           2. macOS says it can't check the file. Click Done, not Move to Trash.
@@ -37,11 +37,12 @@ jobs:
           TXT
           sed -i 's/^          //' "All Plugins/READ ME FIRST.txt"
           ls -l "All Plugins"
-          test "$(ls "All Plugins"/*-Installer.pkg | wc -l)" -eq 8
-          test "$(ls "All Plugins/Uninstallers"/*.pkg | wc -l)" -eq 8
+          test "$(ls "All Plugins"/*-Installer.pkg | wc -l)" -eq 9
+          test "$(ls "All Plugins/Uninstallers"/*.pkg | wc -l)" -eq 9
           zip -r All-Plugins-macOS.zip "All Plugins"
       - name: Publish release asset
         run: |
           gh release view -R "$GITHUB_REPOSITORY" all-plugins >/dev/null 2>&1 || \
-            gh release create -R "$GITHUB_REPOSITORY" all-plugins --title "All 8 plugins (ZIP)" --notes "All installers and manuals in one ZIP. Rebuilt every night." --latest
+            gh release create -R "$GITHUB_REPOSITORY" all-plugins --title "All 9 plugins (ZIP)" --notes "All installers and manuals in one ZIP. Rebuilt every night." --latest
           gh release upload -R "$GITHUB_REPOSITORY" all-plugins All-Plugins-macOS.zip --clobber
+          gh release edit -R "$GITHUB_REPOSITORY" all-plugins --title "All 9 plugins (ZIP)"

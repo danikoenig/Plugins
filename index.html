@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plugins by Dani Koenig</title>
-<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Repetitor, Grinder, Knack.">
+<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Repetitor, Grinder, Knack, Gain.">
 <meta property="og:title" content="Plugins by Dani Koenig">
 <meta property="og:description" content="Free VST3 / AU / CLAP plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
 <meta property="og:image" content="img/the-one.jpg">
@@ -206,7 +206,7 @@ footer p{margin:0;max-width:60ch}
   <div class="wrap">
   <section class="line" id="install">
     <div class="lhead"><h2><span class="dot" style="--c:var(--gr)"></span>Install</h2><p>No Terminal needed. The first time takes one extra click.</p></div>
-    <div class="allbox"><div><b>Want everything?</b><span>All 8 installers, uninstallers and manuals in one ZIP (about 50 MB).</span></div><a class="btn" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 8 (ZIP)</a></div>
+    <div class="allbox"><div><b>Want everything?</b><span>All 9 installers, uninstallers and manuals in one ZIP (about 50 MB).</span></div><a class="btn" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 9 (ZIP)</a></div>
     <ol class="steps">
       <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
       <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
@@ -256,6 +256,14 @@ footer p{margin:0;max-width:60ch}
      sub:'Drifting memory processor. Records what you feed it and keeps recombining it into evolving drones.',
      feat:['2 Delays, 4 Delays, Giant Reverb and Granular, each in 3 sizes','Pitch stays steady, made for soloing over a recorded drone','Transpose -24 to +12, feedback up to 1.25 with soft limiter','Slow left-right sway like the hardware, resizable window'],
      meta:['VST3','AU','CLAP','Standalone','Audio effect'], reel:'9O9eUDGFMPw'},
+    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.4', c:'#f0485a', img:'knack', tall:true,
+     sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
+     feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
+     meta:['VST3','AU','CLAP','Audio effect'], reel:'ai99yjHAB6E'},
+    {kind:'Gain utility', repo:'Gain', name:'Gain', ver:'1.5.4', c:'#5fd38d', img:'gain', tall:true,
+     sub:'Gain staging at the start of a channel. One big knob and a meter that shows where you are against your target level.',
+     feat:['Gain knob +/-35 dB, two meters with RMS or True Peak (right click), scale relative to your target','CALIBRATE listens for 5 seconds and sets the gain to your target level, for example -18 dBFS','Mono, Low Cut and High Cut, DC offset always removed','Four themes: Init, Light Gray, Dark and Colorblind'],
+     meta:['VST3','AU','CLAP','Standalone','Utility'], reel:''},
     {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.1', c:'#f7d154', img:'grinder',
      sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
      feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
@@ -263,11 +271,7 @@ footer p{margin:0;max-width:60ch}
     {kind:'MIDI generator', repo:'Repetitor', name:'Repetitor', ver:'1.5.4', c:'#a78bfa', img:'repetitor',
      sub:'Quad random quantized note generator. Press play and four channels make new notes in your scale. Like it? Loop it.',
      feat:['4 channels with their own rate and gate. Starts calm with channel 1 only, switch on 2 to 4 when you want more','Move the loop box or draw your own loop, 1 to 32 steps','18 scales plus your own scale on the piano keys','Vary and humanize: skipped notes, octave jumps, velocity','Repetitor Instrument for Ableton Live (MIDI out to other tracks)'],
-     meta:['VST3','AU','CLAP','MIDI effect'], reel:'yUBCWhY9DK8', manual:true},
-    {kind:'Clipper', repo:'Knack', name:'Knack', ver:'1.0.4', c:'#f0485a', img:'knack', tall:true,
-     sub:'Clipper. One big knob pushes your signal into the clip, the curve and the red glow show how hard.',
-     feat:['SOFT / HARD slider from round soft clip to hard clip','INPUT with CALIBRATE: loudest peak lands at -6 dBFS','MIX for parallel clipping, latency-compensated','OUTPUT limiter with GR meter, 4x oversampling (HQ)'],
-     meta:['VST3','AU','CLAP','Audio effect'], reel:'ai99yjHAB6E'}
+     meta:['VST3','AU','CLAP','MIDI effect'], reel:'yUBCWhY9DK8', manual:true}
   ];
   const ico = {
     play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
