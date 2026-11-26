@@ -12,6 +12,8 @@ Download page for my free macOS plugins (VST3, Audio Unit, CLAP). One stage on t
 | Grinder | Step sequencer | [Grinder](https://github.com/danikoenig/Grinder) |
 | Repetitor | MIDI generator | [Repetitor](https://github.com/danikoenig/Repetitor) |
 | Knack | Clipper | [Knack](https://github.com/danikoenig/Knack) |
+| Gain | Gain staging utility | [Gain](https://github.com/danikoenig/Gain) |
+| Remember | Always-on recorder | [Remember](https://github.com/danikoenig/Remember) |
 
 ## Setup (GitHub Pages)
 

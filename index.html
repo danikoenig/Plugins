@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Plugins by Dani Koenig</title>
-<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Repetitor, Grinder, Knack, Gain.">
+<meta name="description" content="Free VST3, Audio Unit and CLAP plugins for macOS (Apple Silicon) by Dani Koenig: The One, Siren, One Shooter, Quad Shooter, Drift Station, Repetitor, Grinder, Knack, Gain, Remember.">
 <meta property="og:title" content="Plugins by Dani Koenig">
 <meta property="og:description" content="Free VST3 / AU / CLAP plugins for macOS. A polyphonic synth, sample players, drones, MIDI tools and a clipper.">
 <meta property="og:image" content="img/the-one.jpg">
@@ -206,7 +206,7 @@ footer p{margin:0;max-width:60ch}
   <div class="wrap">
   <section class="line" id="install">
     <div class="lhead"><h2><span class="dot" style="--c:var(--gr)"></span>Install</h2><p>No Terminal needed. The first time takes one extra click.</p></div>
-    <div class="allbox"><div><b>Want everything?</b><span>All 9 installers, uninstallers and manuals in one ZIP (about 50 MB).</span></div><a class="btn" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 9 (ZIP)</a></div>
+    <div class="allbox"><div><b>Want everything?</b><span>All 10 installers, uninstallers and manuals in one ZIP (about 50 MB).</span></div><a class="btn" href="https://github.com/danikoenig/plugins/releases/latest/download/All-Plugins-macOS.zip">Download all 10 (ZIP)</a></div>
     <ol class="steps">
       <li><b>Download the installer</b><p>Click Download on the plugin you want. You get a file like <code>OneShooter-Installer.pkg</code>.</p></li>
       <li><b>Double-click it</b><p>macOS says it can't check the file. That's normal for free plugins not sold through Apple. Click Done, not Move to Trash.</p></li>
@@ -264,6 +264,10 @@ footer p{margin:0;max-width:60ch}
      sub:'Gain staging at the start of a channel. One big knob and a meter that shows where you are against your target level.',
      feat:['Gain knob +/-35 dB, two meters with RMS or True Peak (right click), scale relative to your target','CALIBRATE listens for 5 seconds and sets the gain to your target level, for example -18 dBFS','Mono, Low Cut and High Cut, DC offset always removed','Four themes: Init, Light Gray, Dark and Colorblind'],
      meta:['VST3','AU','CLAP','Standalone','Utility'], reel:'jeHFKTrA0Eo'},
+    {kind:'Always-on recorder', repo:'Remember', name:'Remember', ver:'1.6.5', c:'#ff7a2f', img:'remember', nomanual:true,
+     sub:'An always-on recorder. It listens to your track all the time, so what you just played is already saved. Select bars and drag the loop into your DAW.',
+     feat:['History of 1 to 20 minutes with the bar and beat markers of your DAW, snap to beat or bar','Drag the selection out as a WAV or save it, named with project, BPM, key and take number','Built-in editor with trim, fades, normalize, reverse and fold tail for seamless loops','Auto align puts the first kick on the bar line, even behind plugins with latency'],
+     meta:['VST3','AU','CLAP','Utility']},
     {kind:'Step sequencer', repo:'Grinder', name:'Grinder', ver:'1.0.1', c:'#f7d154', img:'grinder',
      sub:'The step sequencer from The One as its own plugin. Play a key and 16 steps run from there, in time with your DAW.',
      feat:['16 steps with pitch, octave, slide, accent and on / mute / skip','Slide glides into the next step, like a 303 on a mono synth with glide','Forward, reverse, ping-pong or random order, swing, rate 1/2 to 1/32T','Random variations for pitch, octave and accent while it plays','Grinder Instrument for Ableton Live (MIDI out to other tracks)'],
@@ -284,7 +288,7 @@ footer p{margin:0;max-width:60ch}
   const acts = p => `<div class="acts">
         <a class="btn main" href="${dl(p, fn(p) + '-Installer.pkg')}">${ico.dl}Download</a>
         ${p.reel ? `<a class="btn small" href="https://www.youtube.com/shorts/${p.reel}">${ico.play}Watch reel</a>` : ''}
-        <a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>
+        ${p.nomanual ? '' : `<a class="btn small" href="${dl(p, fn(p) + '-Manual-EN.pdf')}">Manual EN</a><a class="btn small" href="${dl(p, fn(p) + '-Manual-DE.pdf')}">Manual DE</a>`}
         <a class="btn small" href="${dl(p, fn(p) + '-Uninstaller.pkg')}">Uninstaller</a>
         <a class="btn small" href="${GH + p.repo}" aria-label="${p.name} on GitHub">${ico.gh}GitHub</a>
       </div>`;
